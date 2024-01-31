@@ -8,7 +8,7 @@ public class DomainException extends NoStackTraceException {
     private final List<Error> errors;
 
     private DomainException(final List<Error> errors) {
-        super("", null);
+        super("");
         this.errors = errors;
     }
 
