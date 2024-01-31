@@ -1,6 +1,7 @@
 package com.codemagic.catalog.admin.domain.category;
 
 import com.codemagic.catalog.admin.domain.AggregateRoot;
+import com.codemagic.catalog.admin.domain.validation.ValidationHandler;
 
 import java.time.Instant;
 
@@ -37,6 +38,11 @@ public class Category extends AggregateRoot<CategoryID> {
                 Instant.now(),
                 Instant.now(),
                 null);
+    }
+
+    @Override
+    public void validate(ValidationHandler handler) {
+        new CategoryValidator(this, handler).validate();
     }
 
     public String getName() {

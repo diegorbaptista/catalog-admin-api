@@ -1,6 +1,8 @@
 package com.codemagic.catalog.admin.domain;
 
-public class AggregateRoot<ID extends Identifier> extends Entity<ID> {
+import com.codemagic.catalog.admin.domain.validation.ValidationHandler;
+
+public abstract class AggregateRoot<ID extends Identifier> extends Entity<ID> {
     protected AggregateRoot(final ID id) {
         super(id);
     }
