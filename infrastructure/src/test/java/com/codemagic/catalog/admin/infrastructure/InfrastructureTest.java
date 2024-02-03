@@ -8,9 +8,7 @@ import org.junit.jupiter.api.Test;
 public class InfrastructureTest {
     @Test
     void testNewInfrastructure() {
-        var category = new Category();
-        var useCase = new UseCase();
+        var category = Category.newCategory("", "");
         Assertions.assertNotNull(category);
-        Assertions.assertNotNull(useCase);
     }
 }
