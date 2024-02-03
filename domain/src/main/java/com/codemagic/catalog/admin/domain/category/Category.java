@@ -6,8 +6,8 @@ import com.codemagic.catalog.admin.domain.validation.ValidationHandler;
 import java.time.Instant;
 
 public class Category extends AggregateRoot<CategoryID> {
-    private final String name;
-    private final String description;
+    private String name;
+    private String description;
     private boolean active;
     private final Instant createdAt;
     private Instant updatedAt;
@@ -83,5 +83,19 @@ public class Category extends AggregateRoot<CategoryID> {
 
     public Instant getDeletedAt() {
         return deletedAt;
+    }
+
+    public Category update(final String name,
+                           final String description,
+                           final boolean isActive) {
+        this.name = name;
+        this.description = description;
+        this.updatedAt = Instant.now();
+        if (isActive) {
+            this.activate();
+        } else {
+            this.deactivate();
+        }
+        return this;
     }
 }
