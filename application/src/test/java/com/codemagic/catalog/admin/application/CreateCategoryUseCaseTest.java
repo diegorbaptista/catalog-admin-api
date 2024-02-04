@@ -32,7 +32,7 @@ public class CreateCategoryUseCaseTest {
 
         final var command = CreateCategoryCommand.with(expectedName, expectedDescription);
         when(gateway.create(any())).thenAnswer(returnsFirstArg());
-        final var actualOutput = useCase.execute(command);
+        final var actualOutput = useCase.execute(command).get();
 
         assertNotNull(actualOutput);
         assertNotNull(actualOutput.id());
@@ -56,9 +56,10 @@ public class CreateCategoryUseCaseTest {
         final var expectedErrorCount = 1;
 
         final var command = CreateCategoryCommand.with(expectedName, expectedDescription);
-        final var actualException = assertThrows(DomainException.class, () -> useCase.execute(command));
+        final var notification = useCase.execute(command).getLeft();
 
-        assertEquals(actualException.getErrors().get(0).message(), expectedErrorMessage);
+        assertEquals(notification.first().message(), expectedErrorMessage);
+        assertEquals(notification.getErrors().size(), expectedErrorCount);
         verify(gateway, times(0)).create(any());
     }
 
@@ -72,8 +73,9 @@ public class CreateCategoryUseCaseTest {
         final var command = CreateCategoryCommand.with(expectedName, expectedDescription);
         when(gateway.create(any())).thenThrow(new IllegalStateException(expectedErrorMessage));
 
-        final var actualException = assertThrows(IllegalStateException.class, () -> useCase.execute(command));
-        assertEquals(actualException.getMessage(), expectedErrorMessage);
+        final var notification = useCase.execute(command).getLeft();
+        assertEquals(notification.first().message(), expectedErrorMessage);
+        assertEquals(notification.getErrors().size(), expectedErrorCount);
 
         verify(gateway, times(1))
                 .create(argThat(category ->
