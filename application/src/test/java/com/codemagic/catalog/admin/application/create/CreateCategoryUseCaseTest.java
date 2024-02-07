@@ -1,13 +1,14 @@
-package com.codemagic.catalog.admin.application;
+package com.codemagic.catalog.admin.application.create;
 
 import com.codemagic.catalog.admin.application.category.create.CreateCategoryCommand;
 import com.codemagic.catalog.admin.application.category.create.DefaultCreateCategoryUseCase;
 import com.codemagic.catalog.admin.domain.category.CategoryGateway;
-import com.codemagic.catalog.admin.domain.exceptions.DomainException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Objects;
@@ -24,6 +25,11 @@ public class CreateCategoryUseCaseTest {
 
     @Mock
     private CategoryGateway gateway;
+
+    @BeforeEach
+    void cleanUp() {
+        Mockito.reset(gateway);
+    }
 
     @Test
     void givenAValidCommand_whenCallsCreateCategory_thenShouldCreateACategory() {
