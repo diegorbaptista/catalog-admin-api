@@ -1,6 +1,5 @@
 package com.codemagic.catalog.admin.application.category.retrieve.list;
 
-import com.codemagic.catalog.admin.application.category.retrieve.CategoryOutput;
 import com.codemagic.catalog.admin.domain.category.Category;
 import com.codemagic.catalog.admin.domain.category.CategoryID;
 

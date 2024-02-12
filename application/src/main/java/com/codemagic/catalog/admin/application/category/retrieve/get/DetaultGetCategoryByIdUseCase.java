@@ -1,4 +1,4 @@
-package com.codemagic.catalog.admin.application.category.retrieve;
+package com.codemagic.catalog.admin.application.category.retrieve.get;
 
 import com.codemagic.catalog.admin.domain.category.CategoryGateway;
 import com.codemagic.catalog.admin.domain.category.CategoryID;

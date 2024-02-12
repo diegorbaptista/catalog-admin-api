@@ -1,7 +1,7 @@
-package com.codemagic.catalog.admin.application.retrieve;
+package com.codemagic.catalog.admin.application.retrieve.get;
 
-import com.codemagic.catalog.admin.application.category.retrieve.CategoryOutput;
-import com.codemagic.catalog.admin.application.category.retrieve.DetaultGetCategoryByIdUseCase;
+import com.codemagic.catalog.admin.application.category.retrieve.get.CategoryOutput;
+import com.codemagic.catalog.admin.application.category.retrieve.get.DetaultGetCategoryByIdUseCase;
 import com.codemagic.catalog.admin.domain.category.Category;
 import com.codemagic.catalog.admin.domain.category.CategoryGateway;
 import com.codemagic.catalog.admin.domain.category.CategoryID;
