@@ -1,0 +1,33 @@
+server:
+  port: 8080
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+    min-response-size: 1024 #Minimum Content-Length value that is required for compression to be performed.
+  undertow:
+    threads:
+      worker: 64 # Generally this should be reasonably high, at least 10 per CPO core.
+      io: 4 # One IO thread per CPU core is reasonable default.
+
+spring:
+  datasource:
+    url: jdbc:mysql://${mysql.url}/${mysql.schema}?useSSL=true&serverTimeZone=UTC&characterEncoding=UTF-8
+    username: ${mysql.username}
+    password: ${mysql.password}
+    hikari:
+      auto-commit: false
+      connection-timeout: 250 # Milliseconds. It`s ok to be low, raise timeout and do not lock connection without any response
+      max-lifetime: 60000 # By security reason. Max time that a connection is open.
+      maximum-pool-size: 20 # Maintain 20 connections to the database, it must be low
+      minimum-idle: 10
+      pool-name: master
+    jpa:
+      open-in-view: false
+      show-sql: true
+      hibernate:
+        ddl-auto: none
+      properties:
+      "[hibernate.dialect]": org.hibernate.dialect.MySQL5InnoDBDialect
+      "[hibernate.generate_statistics]": false
+      "[hibernate.connection.provider_disables_autocommit]": true
+      # Para aumentar a performance ao máximo desabilitamos o auto-commit e o open-in-view

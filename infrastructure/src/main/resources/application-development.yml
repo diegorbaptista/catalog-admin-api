@@ -1,0 +1,11 @@
+mysql:
+  username: root
+  password: root
+  schema: adm_catalog_db
+  url: localhost:3306
+
+server:
+  undertow:
+    threads:
+      worker: 10 # Generally this should be reasonably high, at least 10 per CPO core.
+      io: 1 # One IO thread per CPU core is reasonable default.s

@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+  mysql:
+    container_name: adm_catalog_mysql
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=adm_catalog_db
+    security_opt:
+      - seccomp:unconfined
+    ports:
+      - 3306:3306
+    networks:
+      - adm_catalog_network
+
+networks:
+  adm_catalog_network:

@@ -1,0 +1,12 @@
+mysql:
+  username: ${DATABASE_MYSQL_USERNAME:root}
+  password: ${DATABASE_MYSQL_PASSWORD:root}
+  schema: adm_catalog_db
+  url: ${DATABASE_MYSQL_URL:localhost:3306}
+
+spring:
+  datasource:
+    jpa:
+      show-sql: true
+      hibernate:
+        ddl-auto: none
