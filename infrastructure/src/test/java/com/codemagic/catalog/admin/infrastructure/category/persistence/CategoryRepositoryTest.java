@@ -1,7 +1,7 @@
 package com.codemagic.catalog.admin.infrastructure.category.persistence;
 
 import com.codemagic.catalog.admin.domain.category.Category;
-import com.codemagic.catalog.admin.infrastructure.MySQLGatewayTest;
+import com.codemagic.catalog.admin.MySQLGatewayTest;
 import org.hibernate.PropertyValueException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
