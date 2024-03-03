@@ -38,9 +38,9 @@ public class CreateCategoryUseCaseIntegrationTest {
         assertNotNull(actualOutput);
         assertNotNull(actualOutput.id());
 
-        final var actualCategory = assertDoesNotThrow(() -> repository.findById(actualOutput.id().getValue()).orElseThrow());
+        final var actualCategory = assertDoesNotThrow(() -> repository.findById(actualOutput.id()).orElseThrow());
 
-        assertEquals(actualCategory.getId(), actualOutput.id().getValue());
+        assertEquals(actualCategory.getId(), actualOutput.id());
         assertEquals(expectedDescription, actualCategory.getDescription());
         assertTrue(actualCategory.isActive());
         assertNotNull(actualCategory.getCreatedAt());

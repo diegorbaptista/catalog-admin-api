@@ -2,7 +2,6 @@ package com.codemagic.catalog.admin.domain.exceptions;
 
 import com.codemagic.catalog.admin.domain.validation.Error;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +19,7 @@ public class DomainException extends NoStackTraceException {
         return new DomainException(errors);
     }
 
-    public static DomainException with(final Error error) {
+    public static DomainException with(Error error) {
         return new DomainException(List.of(error));
     }
 
