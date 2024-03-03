@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class DomainException extends NoStackTraceException {
-    private final List<Error> errors;
+    protected final List<Error> errors;
 
-    private DomainException(final List<Error> errors) {
+    protected DomainException(final List<Error> errors) {
         super(errors.stream()
                 .map(Error::message)
                 .collect(Collectors.joining(", ")));

@@ -1,8 +1,10 @@
 package com.codemagic.catalog.admin.application.category.retrieve.get;
 
+import com.codemagic.catalog.admin.domain.category.Category;
 import com.codemagic.catalog.admin.domain.category.CategoryGateway;
 import com.codemagic.catalog.admin.domain.category.CategoryID;
 import com.codemagic.catalog.admin.domain.exceptions.DomainException;
+import com.codemagic.catalog.admin.domain.exceptions.NotFoundException;
 import com.codemagic.catalog.admin.domain.validation.Error;
 
 import java.util.Objects;
@@ -25,6 +27,6 @@ public class DetaultGetCategoryByIdUseCase extends GetCategoryByIdUseCase {
     }
 
     private static Supplier<DomainException> notFound(String categoryId) {
-        return () -> DomainException.with(new Error("Category with ID %s was not found".formatted(categoryId)));
+        return () -> NotFoundException.with(Category.class, CategoryID.from(categoryId));
     }
 }

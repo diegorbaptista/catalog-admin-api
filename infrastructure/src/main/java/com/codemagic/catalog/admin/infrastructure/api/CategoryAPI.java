@@ -1,7 +1,7 @@
 package com.codemagic.catalog.admin.infrastructure.api;
 
 import com.codemagic.catalog.admin.domain.pagination.Pagination;
-import com.codemagic.catalog.admin.infrastructure.category.models.CreateCategoryInput;
+import com.codemagic.catalog.admin.infrastructure.category.models.CreateCategoryApiInput;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -23,7 +23,7 @@ public interface CategoryAPI {
             @ApiResponse(responseCode = "422", description = "A validation error was thrown"),
             @ApiResponse(responseCode = "500", description = "A internal server error was thrown")
     })
-    ResponseEntity<?> create(@RequestBody CreateCategoryInput input);
+    ResponseEntity<?> create(@RequestBody CreateCategoryApiInput input);
 
     @GetMapping(
             path = "{id}",

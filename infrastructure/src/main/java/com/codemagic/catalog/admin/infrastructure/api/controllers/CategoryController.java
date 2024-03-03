@@ -3,10 +3,12 @@ package com.codemagic.catalog.admin.infrastructure.api.controllers;
 import com.codemagic.catalog.admin.application.category.create.CreateCategoryCommand;
 import com.codemagic.catalog.admin.application.category.create.CreateCategoryOutput;
 import com.codemagic.catalog.admin.application.category.create.CreateCategoryUseCase;
+import com.codemagic.catalog.admin.application.category.retrieve.get.GetCategoryByIdUseCase;
 import com.codemagic.catalog.admin.domain.pagination.Pagination;
 import com.codemagic.catalog.admin.domain.validation.handler.Notification;
 import com.codemagic.catalog.admin.infrastructure.api.CategoryAPI;
-import com.codemagic.catalog.admin.infrastructure.category.models.CreateCategoryInput;
+import com.codemagic.catalog.admin.infrastructure.category.models.CreateCategoryApiInput;
+import com.codemagic.catalog.admin.infrastructure.category.presenters.CategoryApiPresenter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,12 +20,15 @@ import java.util.function.Function;
 public class CategoryController implements CategoryAPI {
 
     private final CreateCategoryUseCase createCategoryUseCase;
+    private final GetCategoryByIdUseCase getCategoryByIdUseCase;
 
-    public CategoryController(final CreateCategoryUseCase createCategoryUseCase) {
+    public CategoryController(final CreateCategoryUseCase createCategoryUseCase,
+                              final GetCategoryByIdUseCase getCategoryByIdUseCase) {
         this.createCategoryUseCase = Objects.requireNonNull(createCategoryUseCase);
+        this.getCategoryByIdUseCase = Objects.requireNonNull(getCategoryByIdUseCase);
     }
     @Override
-    public ResponseEntity<?> create(CreateCategoryInput input) {
+    public ResponseEntity<?> create(CreateCategoryApiInput input) {
         final var command = CreateCategoryCommand.with(
                 input.name(),
                 input.description()
@@ -42,7 +47,8 @@ public class CategoryController implements CategoryAPI {
 
     @Override
     public ResponseEntity<?> get(String id) {
-        return null;
+        return ResponseEntity.ok(CategoryApiPresenter
+                .present(this.getCategoryByIdUseCase.execute(id)));
     }
 
     @Override
