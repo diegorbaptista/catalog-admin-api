@@ -3,6 +3,7 @@ package com.codemagic.catalog.admin.infrastructure.api;
 import com.codemagic.catalog.admin.ControllerTest;
 import com.codemagic.catalog.admin.application.category.create.CreateCategoryOutput;
 import com.codemagic.catalog.admin.application.category.create.CreateCategoryUseCase;
+import com.codemagic.catalog.admin.application.category.delete.DeleteCategoryUseCase;
 import com.codemagic.catalog.admin.application.category.retrieve.get.CategoryOutput;
 import com.codemagic.catalog.admin.application.category.retrieve.get.GetCategoryByIdUseCase;
 import com.codemagic.catalog.admin.application.category.update.UpdateCategoryOutput;
@@ -17,6 +18,7 @@ import com.codemagic.catalog.admin.infrastructure.category.models.CreateCategory
 import com.codemagic.catalog.admin.infrastructure.category.models.UpdateCategoryApiInput;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -30,8 +32,7 @@ import static io.vavr.API.Right;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -52,6 +53,9 @@ public class CategoryAPITest {
 
     @MockBean
     private UpdateCategoryUseCase updateCategoryUseCase;
+
+    @MockBean
+    private DeleteCategoryUseCase deleteCategoryUseCase;
 
     @Test
     void givenAValidCommand_whenCallsCreateCategory_thenShouldCreateACategory() throws Exception {
@@ -291,5 +295,21 @@ public class CategoryAPITest {
 
         ));
     }
+
+    @Test
+    void givenAValidCategoryID_whenCallsDeleteCategory_thenShouldBeOK() throws Exception {
+        final var expectedId = "1234";
+
+        doNothing().when(deleteCategoryUseCase).execute(any());
+
+        final var request = delete("/categories/{id}", expectedId);
+        this.mvc.perform(request)
+                .andDo(print())
+                .andExpect(status().isNoContent());
+
+        verify(deleteCategoryUseCase, times(1)).execute(eq(expectedId));
+    }
+
+
 
 }

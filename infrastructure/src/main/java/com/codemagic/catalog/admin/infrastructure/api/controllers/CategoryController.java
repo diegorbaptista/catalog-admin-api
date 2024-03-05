@@ -3,6 +3,7 @@ package com.codemagic.catalog.admin.infrastructure.api.controllers;
 import com.codemagic.catalog.admin.application.category.create.CreateCategoryCommand;
 import com.codemagic.catalog.admin.application.category.create.CreateCategoryOutput;
 import com.codemagic.catalog.admin.application.category.create.CreateCategoryUseCase;
+import com.codemagic.catalog.admin.application.category.delete.DeleteCategoryUseCase;
 import com.codemagic.catalog.admin.application.category.retrieve.get.GetCategoryByIdUseCase;
 import com.codemagic.catalog.admin.application.category.update.UpdateCategoryCommand;
 import com.codemagic.catalog.admin.application.category.update.UpdateCategoryOutput;
@@ -25,16 +26,19 @@ public class CategoryController implements CategoryAPI {
 
     private final CreateCategoryUseCase createCategoryUseCase;
     private final GetCategoryByIdUseCase getCategoryByIdUseCase;
-
     private final UpdateCategoryUseCase updateCategoryUseCase;
+    private final DeleteCategoryUseCase deleteCategoryUseCase;
 
     public CategoryController(final CreateCategoryUseCase createCategoryUseCase,
                               final GetCategoryByIdUseCase getCategoryByIdUseCase,
-                              final UpdateCategoryUseCase updateCategoryUseCase) {
+                              final UpdateCategoryUseCase updateCategoryUseCase,
+                              final DeleteCategoryUseCase deleteCategoryUseCase) {
         this.createCategoryUseCase = Objects.requireNonNull(createCategoryUseCase);
         this.getCategoryByIdUseCase = Objects.requireNonNull(getCategoryByIdUseCase);
         this.updateCategoryUseCase = Objects.requireNonNull(updateCategoryUseCase);
+        this.deleteCategoryUseCase = Objects.requireNonNull(deleteCategoryUseCase);
     }
+
     @Override
     public ResponseEntity<?> create(CreateCategoryApiInput input) {
         final var command = CreateCategoryCommand.with(
@@ -79,12 +83,14 @@ public class CategoryController implements CategoryAPI {
 
 
     @Override
-    public Pagination<?> list(String search, int page, int perPage, String sort, String direction) {
-        return null;
+    public ResponseEntity<Void> delete(final String id) {
+        this.deleteCategoryUseCase.execute(id);
+        return ResponseEntity.noContent().build();
     }
 
     @Override
-    public ResponseEntity<Void> delete(String id) {
+    public Pagination<?> list(String search, int page, int perPage, String sort, String direction) {
         return null;
     }
 }
+
