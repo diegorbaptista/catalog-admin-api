@@ -46,7 +46,7 @@ public class UpdateCategoryUseCaseIntegrationTest {
         final var command = UpdateCategoryCommand.with(category.getId().getValue(), expectedName, expectedDescription, expectedActive);
 
         final var actualOutput = useCase.execute(command).get();
-        final var actualCategory = assertDoesNotThrow(() -> this.repository.findById(actualOutput.id().getValue()).orElseThrow());
+        final var actualCategory = assertDoesNotThrow(() -> this.repository.findById(actualOutput.id()).orElseThrow());
 
         assertNotNull(actualOutput);
         assertNotNull(actualOutput.id());

@@ -2,6 +2,7 @@ package com.codemagic.catalog.admin.infrastructure.api;
 
 import com.codemagic.catalog.admin.domain.pagination.Pagination;
 import com.codemagic.catalog.admin.infrastructure.category.models.CreateCategoryApiInput;
+import com.codemagic.catalog.admin.infrastructure.category.models.UpdateCategoryApiInput;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -36,6 +37,18 @@ public interface CategoryAPI {
             @ApiResponse(responseCode = "500", description = "A internal server error was thrown")
     })
     ResponseEntity<?> get(@PathVariable("id") final String id);
+
+    @PutMapping(
+            path = "{id}",
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Update a existent category")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Category updated successfully"),
+            @ApiResponse(responseCode = "422", description = "A validation error was thrown"),
+            @ApiResponse(responseCode = "500", description = "A internal server error was thrown")
+    })
+    ResponseEntity<?> update(@PathVariable("id") final String id, @RequestBody final UpdateCategoryApiInput input);
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "List and filter all categories paginated")
