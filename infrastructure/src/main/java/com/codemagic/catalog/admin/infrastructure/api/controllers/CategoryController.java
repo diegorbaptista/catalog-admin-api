@@ -5,12 +5,15 @@ import com.codemagic.catalog.admin.application.category.create.CreateCategoryOut
 import com.codemagic.catalog.admin.application.category.create.CreateCategoryUseCase;
 import com.codemagic.catalog.admin.application.category.delete.DeleteCategoryUseCase;
 import com.codemagic.catalog.admin.application.category.retrieve.get.GetCategoryByIdUseCase;
+import com.codemagic.catalog.admin.application.category.retrieve.list.ListCategoriesUseCase;
 import com.codemagic.catalog.admin.application.category.update.UpdateCategoryCommand;
 import com.codemagic.catalog.admin.application.category.update.UpdateCategoryOutput;
 import com.codemagic.catalog.admin.application.category.update.UpdateCategoryUseCase;
+import com.codemagic.catalog.admin.domain.category.CategorySearchQuery;
 import com.codemagic.catalog.admin.domain.pagination.Pagination;
 import com.codemagic.catalog.admin.domain.validation.handler.Notification;
 import com.codemagic.catalog.admin.infrastructure.api.CategoryAPI;
+import com.codemagic.catalog.admin.infrastructure.category.models.CategoryListApiOutput;
 import com.codemagic.catalog.admin.infrastructure.category.models.CreateCategoryApiInput;
 import com.codemagic.catalog.admin.infrastructure.category.models.UpdateCategoryApiInput;
 import com.codemagic.catalog.admin.infrastructure.category.presenters.CategoryApiPresenter;
@@ -28,15 +31,18 @@ public class CategoryController implements CategoryAPI {
     private final GetCategoryByIdUseCase getCategoryByIdUseCase;
     private final UpdateCategoryUseCase updateCategoryUseCase;
     private final DeleteCategoryUseCase deleteCategoryUseCase;
+    private final ListCategoriesUseCase listCategoriesUseCase;
 
     public CategoryController(final CreateCategoryUseCase createCategoryUseCase,
                               final GetCategoryByIdUseCase getCategoryByIdUseCase,
                               final UpdateCategoryUseCase updateCategoryUseCase,
-                              final DeleteCategoryUseCase deleteCategoryUseCase) {
+                              final DeleteCategoryUseCase deleteCategoryUseCase,
+                              final ListCategoriesUseCase listCategoriesUseCase) {
         this.createCategoryUseCase = Objects.requireNonNull(createCategoryUseCase);
         this.getCategoryByIdUseCase = Objects.requireNonNull(getCategoryByIdUseCase);
         this.updateCategoryUseCase = Objects.requireNonNull(updateCategoryUseCase);
         this.deleteCategoryUseCase = Objects.requireNonNull(deleteCategoryUseCase);
+        this.listCategoriesUseCase = Objects.requireNonNull(listCategoriesUseCase);
     }
 
     @Override
@@ -89,8 +95,15 @@ public class CategoryController implements CategoryAPI {
     }
 
     @Override
-    public Pagination<?> list(String search, int page, int perPage, String sort, String direction) {
-        return null;
+    public Pagination<CategoryListApiOutput> list(final int page,
+                                                  final int perPage,
+                                                  final String terms,
+                                                  final String sort,
+                                                  final String direction) {
+        final var query = new CategorySearchQuery(page, perPage, terms, sort, direction);
+        return this.listCategoriesUseCase
+                .execute(query)
+                .map(CategoryApiPresenter::present);
     }
 }
 

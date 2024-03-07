@@ -58,11 +58,11 @@ public interface CategoryAPI {
             @ApiResponse(responseCode = "500", description = "A internal server error was thrown")
     })
     Pagination<?> list(
-            @RequestParam(name = "search", required = false, defaultValue = "") final String search,
             @RequestParam(name = "page", required = false, defaultValue = "0") final int page,
-            @RequestParam(name = "search", required = false, defaultValue = "10") final int perPage,
-            @RequestParam(name = "search", required = false, defaultValue = "name") final String sort,
-            @RequestParam(name = "search", required = false, defaultValue = "asc") final String direction
+            @RequestParam(name = "perPage", required = false, defaultValue = "10") final int perPage,
+            @RequestParam(name = "terms", required = false, defaultValue = "") final String terms,
+            @RequestParam(name = "sort", required = false, defaultValue = "name") final String sort,
+            @RequestParam(name = "direction", required = false, defaultValue = "asc") final String direction
     );
 
     @DeleteMapping(path = "{id}")
