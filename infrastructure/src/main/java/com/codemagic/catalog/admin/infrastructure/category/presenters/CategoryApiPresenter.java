@@ -2,13 +2,13 @@ package com.codemagic.catalog.admin.infrastructure.category.presenters;
 
 import com.codemagic.catalog.admin.application.category.retrieve.get.CategoryOutput;
 import com.codemagic.catalog.admin.application.category.retrieve.list.CategoryListOutput;
-import com.codemagic.catalog.admin.infrastructure.category.models.CategoryApiOutput;
-import com.codemagic.catalog.admin.infrastructure.category.models.CategoryListApiOutput;
+import com.codemagic.catalog.admin.infrastructure.category.models.CategoryResponse;
+import com.codemagic.catalog.admin.infrastructure.category.models.CategoryListResponse;
 
 public interface CategoryApiPresenter {
 
-    static CategoryApiOutput present(final CategoryOutput output) {
-        return new CategoryApiOutput(
+    static CategoryResponse present(final CategoryOutput output) {
+        return new CategoryResponse(
                 output.name(),
                 output.description(),
                 output.isActive(),
@@ -18,8 +18,8 @@ public interface CategoryApiPresenter {
         );
     }
 
-    static CategoryListApiOutput present(final CategoryListOutput output) {
-        return new CategoryListApiOutput(
+    static CategoryListResponse present(final CategoryListOutput output) {
+        return new CategoryListResponse(
                 output.id().getValue(),
                 output.name(),
                 output.description(),

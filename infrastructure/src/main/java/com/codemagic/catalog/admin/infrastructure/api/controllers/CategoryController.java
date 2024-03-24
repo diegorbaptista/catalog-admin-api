@@ -13,9 +13,9 @@ import com.codemagic.catalog.admin.domain.category.CategorySearchQuery;
 import com.codemagic.catalog.admin.domain.pagination.Pagination;
 import com.codemagic.catalog.admin.domain.validation.handler.Notification;
 import com.codemagic.catalog.admin.infrastructure.api.CategoryAPI;
-import com.codemagic.catalog.admin.infrastructure.category.models.CategoryListApiOutput;
-import com.codemagic.catalog.admin.infrastructure.category.models.CreateCategoryApiInput;
-import com.codemagic.catalog.admin.infrastructure.category.models.UpdateCategoryApiInput;
+import com.codemagic.catalog.admin.infrastructure.category.models.CategoryListResponse;
+import com.codemagic.catalog.admin.infrastructure.category.models.CreateCategoryRequest;
+import com.codemagic.catalog.admin.infrastructure.category.models.UpdateCategoryRequest;
 import com.codemagic.catalog.admin.infrastructure.category.presenters.CategoryApiPresenter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,7 +46,7 @@ public class CategoryController implements CategoryAPI {
     }
 
     @Override
-    public ResponseEntity<?> create(CreateCategoryApiInput input) {
+    public ResponseEntity<?> create(CreateCategoryRequest input) {
         final var command = CreateCategoryCommand.with(
                 input.name(),
                 input.description()
@@ -70,12 +70,12 @@ public class CategoryController implements CategoryAPI {
     }
 
     @Override
-    public ResponseEntity<?> update(final String id, final UpdateCategoryApiInput input) {
+    public ResponseEntity<?> update(final String id, final UpdateCategoryRequest input) {
         final var command = UpdateCategoryCommand.with(
                 id,
                 input.name(),
                 input.description(),
-                input.active()
+                input.active() != null ? input.active() : true
         );
 
         final Function<Notification, ResponseEntity<?>> onError = notification ->
@@ -95,11 +95,11 @@ public class CategoryController implements CategoryAPI {
     }
 
     @Override
-    public Pagination<CategoryListApiOutput> list(final int page,
-                                                  final int perPage,
-                                                  final String terms,
-                                                  final String sort,
-                                                  final String direction) {
+    public Pagination<CategoryListResponse> list(final int page,
+                                                 final int perPage,
+                                                 final String terms,
+                                                 final String sort,
+                                                 final String direction) {
         final var query = new CategorySearchQuery(page, perPage, terms, sort, direction);
         return this.listCategoriesUseCase
                 .execute(query)

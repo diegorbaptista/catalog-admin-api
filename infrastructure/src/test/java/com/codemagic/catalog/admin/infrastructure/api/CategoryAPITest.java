@@ -12,14 +12,13 @@ import com.codemagic.catalog.admin.application.category.update.UpdateCategoryOut
 import com.codemagic.catalog.admin.application.category.update.UpdateCategoryUseCase;
 import com.codemagic.catalog.admin.domain.category.Category;
 import com.codemagic.catalog.admin.domain.category.CategoryID;
-import com.codemagic.catalog.admin.domain.category.CategorySearchQuery;
 import com.codemagic.catalog.admin.domain.exceptions.DomainException;
 import com.codemagic.catalog.admin.domain.exceptions.NotFoundException;
 import com.codemagic.catalog.admin.domain.pagination.Pagination;
 import com.codemagic.catalog.admin.domain.validation.Error;
 import com.codemagic.catalog.admin.domain.validation.handler.Notification;
-import com.codemagic.catalog.admin.infrastructure.category.models.CreateCategoryApiInput;
-import com.codemagic.catalog.admin.infrastructure.category.models.UpdateCategoryApiInput;
+import com.codemagic.catalog.admin.infrastructure.category.models.CreateCategoryRequest;
+import com.codemagic.catalog.admin.infrastructure.category.models.UpdateCategoryRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +68,7 @@ public class CategoryAPITest {
         final var expectedName = "Movies";
         final var expectedDescription = "The most watched movies";
 
-        final var input = new CreateCategoryApiInput(expectedName, expectedDescription);
+        final var input = new CreateCategoryRequest(expectedName, expectedDescription);
 
         when(createCategoryUseCase.execute(any()))
                 .thenReturn(Right(CreateCategoryOutput.from(CategoryID.from("123"))));
@@ -100,7 +99,7 @@ public class CategoryAPITest {
         final var expectedErrorMessage = "'name' should not be null";
         final var expectedErrorCount = 1;
 
-        final var input = new CreateCategoryApiInput(expectedName, expectedDescription);
+        final var input = new CreateCategoryRequest(expectedName, expectedDescription);
 
         when(createCategoryUseCase.execute(any()))
                 .thenReturn(Left(Notification.create(new Error(expectedErrorMessage))));
@@ -131,7 +130,7 @@ public class CategoryAPITest {
         final var expectedErrorMessage = "'name' should not be null";
         final var expectedErrorCount = 1;
 
-        final var input = new CreateCategoryApiInput(expectedName, expectedDescription);
+        final var input = new CreateCategoryRequest(expectedName, expectedDescription);
 
         when(createCategoryUseCase.execute(any()))
                 .thenThrow(DomainException.with(new Error(expectedErrorMessage)));
@@ -213,7 +212,7 @@ public class CategoryAPITest {
         final var expectedDescription = "The most watched movies";
         final var expectedActive = true;
 
-        final var input = new UpdateCategoryApiInput(expectedName, expectedDescription, expectedActive);
+        final var input = new UpdateCategoryRequest(expectedName, expectedDescription, expectedActive);
 
         when(updateCategoryUseCase.execute(any()))
                 .thenReturn(Right(UpdateCategoryOutput.from(expectedId)));
@@ -244,7 +243,7 @@ public class CategoryAPITest {
         final var expectedErrorCount = 1;
         final var expectedErrorMessage = "'name' should not be null";
 
-        final var input = new UpdateCategoryApiInput(expectedName, expectedDescription, expectedActive);
+        final var input = new UpdateCategoryRequest(expectedName, expectedDescription, expectedActive);
 
         when(updateCategoryUseCase.execute(any()))
                 .thenReturn(Left(Notification.create(new Error(expectedErrorMessage))));
@@ -278,7 +277,7 @@ public class CategoryAPITest {
         final var expectedErrorCount = 1;
         final var expectedErrorMessage = "Category with ID 1234 was not found";
 
-        final var input = new UpdateCategoryApiInput(expectedName, expectedDescription, expectedActive);
+        final var input = new UpdateCategoryRequest(expectedName, expectedDescription, expectedActive);
 
         when(updateCategoryUseCase.execute(any()))
                 .thenThrow(NotFoundException.with(Category.class, CategoryID.from(expectedId)));
