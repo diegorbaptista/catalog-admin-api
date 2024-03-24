@@ -4,6 +4,7 @@ import com.codemagic.catalog.admin.domain.AggregateRoot;
 import com.codemagic.catalog.admin.domain.validation.ValidationHandler;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 public class Category extends AggregateRoot<CategoryID> implements Cloneable {
@@ -36,8 +37,8 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable {
         return new Category(CategoryID.unique(),
                 name, description,
                 true,
-                Instant.now(),
-                Instant.now(),
+                Instant.now().truncatedTo(ChronoUnit.MICROS),
+                Instant.now().truncatedTo(ChronoUnit.MICROS),
                 null);
     }
 
@@ -67,17 +68,17 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable {
 
     public Category activate() {
         this.deletedAt = null;
-        this.updatedAt = Instant.now();
+        this.updatedAt = Instant.now().truncatedTo(ChronoUnit.MICROS);
         this.active = true;
         return this;
     }
 
     public Category deactivate() {
         if (this.deletedAt == null) {
-            this.deletedAt = Instant.now();
+            this.deletedAt = Instant.now().truncatedTo(ChronoUnit.MICROS);
         }
         this.active = false;
-        this.updatedAt = Instant.now();
+        this.updatedAt = Instant.now().truncatedTo(ChronoUnit.MICROS);
         return this;
     }
 
@@ -110,7 +111,7 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable {
                            final boolean isActive) {
         this.name = name;
         this.description = description;
-        this.updatedAt = Instant.now();
+        this.updatedAt = Instant.now().truncatedTo(ChronoUnit.MICROS);
         if (isActive) {
             this.activate();
         } else {

@@ -11,6 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -94,6 +97,7 @@ public class UpdateCategoryUseCaseIntegrationTest {
         assertEquals(category.getName(), actualCategory.getName());
         assertEquals(category.getDescription(), actualCategory.getDescription());
         assertEquals(category.isActive(), actualCategory.isActive());
+
         assertEquals(category.getCreatedAt(), actualCategory.getCreatedAt());
         assertEquals(category.getUpdatedAt(), actualCategory.getUpdatedAt());
         assertEquals(category.getDeletedAt(), actualCategory.getDeletedAt());
