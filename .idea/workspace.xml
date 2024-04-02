@@ -5,21 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f994f67e-3f78-4bf7-a515-2f9ffb985129" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/infrastructure/src/main/java/com/codemagic/catalog/admin/infrastructure/category/persistence/CategoryJpaEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/infrastructure/src/main/java/com/codemagic/catalog/admin/infrastructure/category/persistence/CategoryRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/infrastructure/src/main/resources/db/migration/V1__initial.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/infrastructure/src/test/java/com/codemagic/catalog/admin/infrastructure/MySQLGatewayTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/infrastructure/src/test/java/com/codemagic/catalog/admin/infrastructure/category/CategoryMySQLGatewayTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/src/main/java/com/codemagic/catalog/admin/domain/category/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/domain/src/main/java/com/codemagic/catalog/admin/domain/category/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infrastructure/src/main/resources/application-test.yml" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/src/main/resources/application-test.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/domain/src/main/java/com/codemagic/catalog/admin/domain/exceptions/NotificationException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/domain/src/main/java/com/codemagic/catalog/admin/domain/genre/Genre.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/domain/src/main/java/com/codemagic/catalog/admin/domain/genre/GenreGateway.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/domain/src/main/java/com/codemagic/catalog/admin/domain/genre/GenreID.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/domain/src/main/java/com/codemagic/catalog/admin/domain/genre/GenreValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/domain/src/main/java/com/codemagic/catalog/admin/domain/util/InstantUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/domain/src/test/java/com/codemagic/catalog/admin/domain/GenreTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +57,20 @@
                 <item name="catalog-admin" type="f1a62948:ProjectNode" />
                 <item name="infrastructure" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="flyway" type="c8890929:TasksNode$1" />
+                <item name="application" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="catalog-admin" type="f1a62948:ProjectNode" />
+                <item name="infrastructure" type="2d1252cf:ModuleNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="catalog-admin" type="f1a62948:ProjectNode" />
+                <item name="infrastructure" type="2d1252cf:ModuleNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+                <item name="compileClasspath" type="62daadca:ExternalSystemViewDefaultContributor$DependencyScopeExternalSystemNode" />
               </path>
             </expand>
             <select />
@@ -75,9 +82,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
-        <option value="Class" />
+        <option value="Record" />
         <option value="AnnotationType" />
+        <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -93,112 +101,153 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.Build catalog-admin.executor": "Run",
-    "Gradle.catalog-admin:infrastructure [:infrastructure:CatalogAdminApplication.main()].executor": "Run",
-    "Gradle.catalog-admin:infrastructure [flywayInfo].executor": "Run",
-    "Gradle.catalog-admin:infrastructure [flywayMigrate].executor": "Run",
-    "JUnit.CategoryMySQLGatewayTest.executor": "Run",
-    "JUnit.CategoryMySQLGatewayTest.givenAValidCategory_whenCallsCreate_thenShouldCreateACategory.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "//wsl.localhost/Ubuntu-22.04/home/diegorbaptista/workspace/catalog-admin",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.Build catalog-admin.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.catalog-admin [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.catalog-admin:infrastructure [:infrastructure:CatalogAdminApplication.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.catalog-admin:infrastructure [bootRun].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.catalog-admin:infrastructure [flywayClean].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.catalog-admin:infrastructure [flywayInfo].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.catalog-admin:infrastructure [flywayMigrate].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.catalog-admin:infrastructure [generateOpenApiDocs].executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in catalog-admin.domain.test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in catalog-admin.infrastructure.test (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in catalog-admin.infrastructure.test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CategoryAPITest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CategoryAPITest.givenAValidCategoryID_whenCallsDeleteCategory_thenShouldBeOK.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CategoryAPITest.givenAValidCategoryId_whenCallsGetCategory_thenShouldReturnACategory.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CategoryAPITest.givenAValidCommandWithInvalidCategoryId_whenCallsUpdateCategory_thenShouldReturnNotFoundException.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CategoryAPITest.givenAValidCommand_whenCallsCreateCategory_thenShouldCreateACategory.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CategoryAPITest.givenAValidCommand_whenCallsUpdateCategory_thenShouldACategoryId.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CategoryAPITest.givenAValidQuery_whenListCategories_thenShouldReturnACategoriesList.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CategoryAPITest.givenAnInvalidCategoryId_whenCallsGetCategory_thenShouldReturnNotFound.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CategoryAPITest.givenAnInvalidCommand_whenCallsCreateCategory_thenShouldReturnAHandledDomainException.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CategoryAPITest.givenAnInvalidCommand_whenCallsUpdateCategory_thenShouldReturnANotification.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CategoryE2ETest.asACatalogAdminIShouldBeAbleToCreateANewCategoryWithValidParams.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CategoryE2ETest.asACatalogAdminIShouldBeAbleToDeleteACategoryByItsIdentifier.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CategoryE2ETest.asACatalogAdminIShouldBeAbleToNavigateThroughAllCategories.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CategoryE2ETest.asACatalogAdminIShouldBeAbleToSearchByTermsThroughAllCategories.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CategoryE2ETest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CategoryE2ETest.testContainerIsRunning.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CategoryListResponseTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CategoryMySQLGatewayTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CategoryMySQLGatewayTest.givenAValidCategory_whenCallsCreate_thenShouldCreateACategory.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CategoryResponseTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CategoryResponseTest.testUnmarshall.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CreateCategoryRequestTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CreateCategoryUseCaseIntegrationTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CreateCategoryUseCaseIntegrationTest.givenAInvalidName_whenCallsCreateCategory_thenShouldReturnDomainException.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CreateCategoryUseCaseIntegrationTest.givenAValidCommand_whenGatewayThrowsARandomException_thenShouldReturnAException.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DeleteCategoryUseCaseIntegrationTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DeleteCategoryUseCaseIntegrationTest.givenAValidCategoryID_whenCallsDeleteCategory_thenShouldBeOK.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DeleteCategoryUseCaseIntegrationTest.givenAValidCategoryID_whenClassDeleteCategory_thenShouldReturnAException.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DeleteCategoryUseCaseIntegrationTest.givenAnInvalidCategoryID_whenClassDeleteCategory_thenShouldBeOK.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GenreTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GenreTest.givenAValidGenre_whenActivateADeactivatedGenre_thenShouldActivateAGenre.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GenreTest.givenAValidGenre_whenCallUpdateWithNullCategories_thenShouldUpdateAGenre.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GetCategoryByIdUseCaseIntegrationTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GetCategoryByIdUseCaseIntegrationTest.givenAValidCommand_whenThrowsARandomException_thenReturnAException.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GetCategoryByIdUseCaseIntegrationTest.givenAnInvalidCategoryId_whenCallsGetCategory_thenShouldReturnNotFound.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ListCategoriesUseCaseIntegrationTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ListCategoriesUseCaseIntegrationTest.givenAValidQuery_whenListCategories_thenShouldReturnACategoriesList.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ListCategoriesUseCaseIntegrationTest.givenAValidQuery_whenListCategories_thenShouldReturnAEmptyCategoryList.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SampleIntegrationTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UpdateCategoryRequestTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UpdateCategoryUseCaseIntegrationTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UpdateCategoryUseCaseIntegrationTest.givenAInvalidName_whenCallsUpdateCategory_thenShouldReturnANotification.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UpdateCategoryUseCaseIntegrationTest.givenAValidActiveCategory_whenCallsUpdateInactiveCategory_thenShouldAInactivatedCategoryId.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UpdateCategoryUseCaseIntegrationTest.givenAValidCommandWithInvalidCategoryId_whenCallsUpdateCategory_thenShouldReturnNotFoundException.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UpdateCategoryUseCaseIntegrationTest.givenAValidCommand_whenCallsUpdateCategory_thenShouldACategoryId.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UpdateCategoryUseCaseIntegrationTest.givenAValidCommand_whenGatewayThrowsARandomException_thenShouldReturnAException.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;//wsl.localhost/Ubuntu-22.04/home/diegorbaptista/workspace/catalog-admin/infrastructure/src/main/resources&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.codemagic.catalog.admin.domain.exceptions" />
+      <recent name="com.codemagic.catalog.admin.domain.genre" />
       <recent name="com.codemagic.catalog.admin.infrastructure.configuration" />
     </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="\\wsl.localhost\Ubuntu-22.04\home\diegorbaptista\workspace\catalog-admin\infrastructure\src\main\resources" />
+    </key>
   </component>
-  <component name="RunManager" selected="JUnit.CategoryMySQLGatewayTest.givenAValidCategory_whenCallsCreate_thenShouldCreateACategory">
-    <configuration name="CatalogAdminApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.codemagic.catalog.admin.infrastructure.CatalogAdminApplication" />
-      <module name="catalog-admin.infrastructure.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.codemagic.catalog.admin.infrastructure.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
+  <component name="RunManager" selected="JUnit.GenreTest">
+    <configuration name="All in catalog-admin.domain.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="catalog-admin.domain.test" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="catalog-admin:infrastructure [flywayInfo]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/infrastructure" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="flywayInfo" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="catalog-admin:infrastructure [flywayMigrate]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/infrastructure" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="flywayMigrate" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="CategoryMySQLGatewayTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CategoryE2ETest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="catalog-admin.infrastructure.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.codemagic.catalog.admin.infrastructure.category.*" />
+          <option name="PATTERN" value="com.codemagic.catalog.admin.e2e.category.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.codemagic.catalog.admin.infrastructure.category" />
-      <option name="MAIN_CLASS_NAME" value="com.codemagic.catalog.admin.infrastructure.category.CategoryMySQLGatewayTest" />
+      <option name="PACKAGE_NAME" value="com.codemagic.catalog.admin.e2e.category" />
+      <option name="MAIN_CLASS_NAME" value="com.codemagic.catalog.admin.e2e.category.CategoryE2ETest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CategoryMySQLGatewayTest.givenAValidCategory_whenCallsCreate_thenShouldCreateACategory" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="catalog-admin.infrastructure.test" />
+    <configuration name="GenreTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="catalog-admin.domain.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.codemagic.catalog.admin.infrastructure.category.*" />
+          <option name="PATTERN" value="com.codemagic.catalog.admin.domain.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.codemagic.catalog.admin.infrastructure.category" />
-      <option name="MAIN_CLASS_NAME" value="com.codemagic.catalog.admin.infrastructure.category.CategoryMySQLGatewayTest" />
-      <option name="METHOD_NAME" value="givenAValidCategory_whenCallsCreate_thenShouldCreateACategory" />
+      <option name="PACKAGE_NAME" value="com.codemagic.catalog.admin.domain" />
+      <option name="MAIN_CLASS_NAME" value="com.codemagic.catalog.admin.domain.GenreTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GenreTest.givenAValidGenre_whenActivateADeactivatedGenre_thenShouldActivateAGenre" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="catalog-admin.domain.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.codemagic.catalog.admin.domain.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.codemagic.catalog.admin.domain" />
+      <option name="MAIN_CLASS_NAME" value="com.codemagic.catalog.admin.domain.GenreTest" />
+      <option name="METHOD_NAME" value="givenAValidGenre_whenActivateADeactivatedGenre_thenShouldActivateAGenre" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GenreTest.givenAValidGenre_whenCallUpdateWithNullCategories_thenShouldUpdateAGenre" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="catalog-admin.domain.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.codemagic.catalog.admin.domain.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.codemagic.catalog.admin.domain" />
+      <option name="MAIN_CLASS_NAME" value="com.codemagic.catalog.admin.domain.GenreTest" />
+      <option name="METHOD_NAME" value="givenAValidGenre_whenCallUpdateWithNullCategories_thenShouldUpdateAGenre" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -206,11 +255,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.CategoryMySQLGatewayTest.givenAValidCategory_whenCallsCreate_thenShouldCreateACategory" />
-        <item itemvalue="JUnit.CategoryMySQLGatewayTest" />
-        <item itemvalue="Gradle.catalog-admin:infrastructure [flywayMigrate]" />
-        <item itemvalue="Gradle.catalog-admin:infrastructure [flywayInfo]" />
-        <item itemvalue="Application.CatalogAdminApplication" />
+        <item itemvalue="JUnit.GenreTest" />
+        <item itemvalue="JUnit.GenreTest.givenAValidGenre_whenCallUpdateWithNullCategories_thenShouldUpdateAGenre" />
+        <item itemvalue="JUnit.All in catalog-admin.domain.test" />
+        <item itemvalue="JUnit.GenreTest.givenAValidGenre_whenActivateADeactivatedGenre_thenShouldActivateAGenre" />
+        <item itemvalue="JUnit.CategoryE2ETest" />
       </list>
     </recent_temporary>
   </component>
@@ -231,5 +280,37 @@
       <updated>1707749012508</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/infrastructure/src/main/java/com/codemagic/catalog/admin/infrastructure/api/controllers/GlobalExceptionHandler.java</url>
+          <line>29</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/infrastructure/src/main/java/com/codemagic/catalog/admin/infrastructure/api/controllers/GlobalExceptionHandler.java</url>
+          <line>24</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/domain/src/main/java/com/codemagic/catalog/admin/domain/exceptions/NotFoundException.java</url>
+          <line>17</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

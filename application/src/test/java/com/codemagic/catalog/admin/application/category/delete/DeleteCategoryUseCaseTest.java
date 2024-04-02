@@ -1,4 +1,4 @@
-package com.codemagic.catalog.admin.application.delete;
+package com.codemagic.catalog.admin.application.category.delete;
 
 import com.codemagic.catalog.admin.application.category.delete.DefaultDeleteCategoryUseCase;
 import com.codemagic.catalog.admin.domain.category.Category;

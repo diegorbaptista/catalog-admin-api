@@ -1,4 +1,4 @@
-package com.codemagic.catalog.admin.application.update;
+package com.codemagic.catalog.admin.application.category.update;
 
 import com.codemagic.catalog.admin.application.category.create.CreateCategoryCommand;
 import com.codemagic.catalog.admin.application.category.update.DefaultUpdateCategoryUseCase;

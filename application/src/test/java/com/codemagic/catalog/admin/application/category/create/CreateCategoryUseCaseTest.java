@@ -1,4 +1,4 @@
-package com.codemagic.catalog.admin.application.create;
+package com.codemagic.catalog.admin.application.category.create;
 
 import com.codemagic.catalog.admin.application.category.create.CreateCategoryCommand;
 import com.codemagic.catalog.admin.application.category.create.DefaultCreateCategoryUseCase;

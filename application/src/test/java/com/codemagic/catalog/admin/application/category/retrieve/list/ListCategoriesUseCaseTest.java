@@ -1,4 +1,4 @@
-package com.codemagic.catalog.admin.application.retrieve.list;
+package com.codemagic.catalog.admin.application.category.retrieve.list;
 
 import com.codemagic.catalog.admin.application.category.retrieve.list.CategoryListOutput;
 import com.codemagic.catalog.admin.application.category.retrieve.list.DefaultListCategoriesUseCase;
