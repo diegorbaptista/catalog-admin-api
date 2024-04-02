@@ -4,7 +4,7 @@ import com.codemagic.catalog.admin.application.category.retrieve.list.CategoryLi
 import com.codemagic.catalog.admin.application.category.retrieve.list.DefaultListCategoriesUseCase;
 import com.codemagic.catalog.admin.domain.category.Category;
 import com.codemagic.catalog.admin.domain.category.CategoryGateway;
-import com.codemagic.catalog.admin.domain.category.CategorySearchQuery;
+import com.codemagic.catalog.admin.domain.pagination.SearchQuery;
 import com.codemagic.catalog.admin.domain.pagination.Pagination;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,7 +43,7 @@ public class ListCategoriesUseCaseTest {
 
         final var expectedPagination = new Pagination<>(expectedPage, expectedPerPage, categories.size(), categories);
 
-        final var query = new CategorySearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
+        final var query = new SearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
 
         final var expectedItemCount = 2;
         final var expectedResult = expectedPagination.map(CategoryListOutput::from);
@@ -70,7 +70,7 @@ public class ListCategoriesUseCaseTest {
         final var expectedItemCount = 0;
 
         final var expectedPagination = new Pagination<>(expectedPage, expectedPerPage, expectedItemCount, categories);
-        final var query = new CategorySearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
+        final var query = new SearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
         final var expectedResult = expectedPagination.map(CategoryListOutput::from);
 
         when(gateway.findAll(eq(query))).thenReturn(expectedPagination);
@@ -96,7 +96,7 @@ public class ListCategoriesUseCaseTest {
         final var expectedDirection = "asc";
         final var expectedErrorMessage = "Gateway exception";
 
-        final var query = new CategorySearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
+        final var query = new SearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
 
         when(gateway.findAll(eq(query))).thenThrow(new IllegalStateException(expectedErrorMessage));
         final var actualException = assertThrows(IllegalStateException.class, () -> useCase.execute(query));

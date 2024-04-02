@@ -9,7 +9,7 @@ import com.codemagic.catalog.admin.application.category.retrieve.list.ListCatego
 import com.codemagic.catalog.admin.application.category.update.UpdateCategoryCommand;
 import com.codemagic.catalog.admin.application.category.update.UpdateCategoryOutput;
 import com.codemagic.catalog.admin.application.category.update.UpdateCategoryUseCase;
-import com.codemagic.catalog.admin.domain.category.CategorySearchQuery;
+import com.codemagic.catalog.admin.domain.pagination.SearchQuery;
 import com.codemagic.catalog.admin.domain.pagination.Pagination;
 import com.codemagic.catalog.admin.domain.validation.handler.Notification;
 import com.codemagic.catalog.admin.infrastructure.api.CategoryAPI;
@@ -100,7 +100,7 @@ public class CategoryController implements CategoryAPI {
                                                  final String terms,
                                                  final String sort,
                                                  final String direction) {
-        final var query = new CategorySearchQuery(page, perPage, terms, sort, direction);
+        final var query = new SearchQuery(page, perPage, terms, sort, direction);
         return this.listCategoriesUseCase
                 .execute(query)
                 .map(CategoryApiPresenter::present);

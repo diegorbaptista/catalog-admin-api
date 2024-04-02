@@ -3,7 +3,7 @@ package com.codemagic.catalog.admin.application.category.retrieve.list;
 import com.codemagic.catalog.admin.IntegrationTest;
 import com.codemagic.catalog.admin.domain.category.Category;
 import com.codemagic.catalog.admin.domain.category.CategoryGateway;
-import com.codemagic.catalog.admin.domain.category.CategorySearchQuery;
+import com.codemagic.catalog.admin.domain.pagination.SearchQuery;
 import com.codemagic.catalog.admin.domain.pagination.Pagination;
 import com.codemagic.catalog.admin.infrastructure.category.persistence.CategoryJpaEntity;
 import com.codemagic.catalog.admin.infrastructure.category.persistence.CategoryRepository;
@@ -48,7 +48,7 @@ public class ListCategoriesUseCaseIntegrationTest {
 
         final var expectedPagination = new Pagination<>(expectedPage, expectedPerPage, categories.size(), categories);
 
-        final var query = new CategorySearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
+        final var query = new SearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
 
         final var expectedItemCount = 2;
         final var expectedResult = expectedPagination.map(CategoryListOutput::from);
@@ -75,7 +75,7 @@ public class ListCategoriesUseCaseIntegrationTest {
 
         assertEquals(0, this.repository.count());
         final var expectedPagination = new Pagination<>(expectedPage, expectedPerPage, expectedItemCount, categories);
-        final var query = new CategorySearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
+        final var query = new SearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
         final var expectedResult = expectedPagination.map(CategoryListOutput::from);
 
         final var actualResult = useCase.execute(query);
@@ -106,7 +106,7 @@ public class ListCategoriesUseCaseIntegrationTest {
         this.repository.saveAllAndFlush(categories.stream().map(CategoryJpaEntity::from).toList());
         assertEquals(2, this.repository.count());
 
-        final var query = new CategorySearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
+        final var query = new SearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
         doThrow(new IllegalStateException(expectedErrorMessage)).when(gateway).findAll(query);
         final var actualException = assertThrows(IllegalStateException.class, () -> useCase.execute(query));
 

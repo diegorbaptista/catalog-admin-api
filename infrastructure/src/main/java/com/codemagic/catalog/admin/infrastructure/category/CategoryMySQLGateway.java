@@ -3,7 +3,7 @@ package com.codemagic.catalog.admin.infrastructure.category;
 import com.codemagic.catalog.admin.domain.category.Category;
 import com.codemagic.catalog.admin.domain.category.CategoryGateway;
 import com.codemagic.catalog.admin.domain.category.CategoryID;
-import com.codemagic.catalog.admin.domain.category.CategorySearchQuery;
+import com.codemagic.catalog.admin.domain.pagination.SearchQuery;
 import com.codemagic.catalog.admin.domain.pagination.Pagination;
 import com.codemagic.catalog.admin.infrastructure.category.persistence.CategoryJpaEntity;
 import com.codemagic.catalog.admin.infrastructure.category.persistence.CategoryRepository;
@@ -59,7 +59,7 @@ public class CategoryMySQLGateway implements CategoryGateway {
     }
 
     @Override
-    public Pagination<Category> findAll(CategorySearchQuery query) {
+    public Pagination<Category> findAll(SearchQuery query) {
         final var page = PageRequest.of(
                 query.page(),
                 query.perPage(),

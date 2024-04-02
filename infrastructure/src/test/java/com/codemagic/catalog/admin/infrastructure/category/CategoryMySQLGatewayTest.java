@@ -2,7 +2,7 @@ package com.codemagic.catalog.admin.infrastructure.category;
 
 import com.codemagic.catalog.admin.domain.category.Category;
 import com.codemagic.catalog.admin.domain.category.CategoryID;
-import com.codemagic.catalog.admin.domain.category.CategorySearchQuery;
+import com.codemagic.catalog.admin.domain.pagination.SearchQuery;
 import com.codemagic.catalog.admin.MySQLGatewayTest;
 import com.codemagic.catalog.admin.infrastructure.category.persistence.CategoryJpaEntity;
 import com.codemagic.catalog.admin.infrastructure.category.persistence.CategoryRepository;
@@ -171,7 +171,7 @@ public class CategoryMySQLGatewayTest {
 
         assertEquals(3, this.repository.count());
 
-        final var query = new CategorySearchQuery(expectedPage, expectedPerPage, "", "name", "asc");
+        final var query = new SearchQuery(expectedPage, expectedPerPage, "", "name", "asc");
         final var actualResult = this.gateway.findAll(query);
 
         assertEquals(expectedPage, actualResult.currentPage());
@@ -199,7 +199,7 @@ public class CategoryMySQLGatewayTest {
 
         assertEquals(0, this.repository.count());
 
-        final var query = new CategorySearchQuery(expectedPage, expectedPerPage, "", "name", "asc");
+        final var query = new SearchQuery(expectedPage, expectedPerPage, "", "name", "asc");
         final var actualResult = this.gateway.findAll(query);
 
         assertEquals(0, this.repository.count());
@@ -232,7 +232,7 @@ public class CategoryMySQLGatewayTest {
         assertEquals(3, this.repository.count());
 
         // Page <0>
-        var query = new CategorySearchQuery(expectedPage, expectedPerPage, "", "name", "asc");
+        var query = new SearchQuery(expectedPage, expectedPerPage, "", "name", "asc");
         var actualResult = this.gateway.findAll(query);
 
         assertEquals(expectedPage, actualResult.currentPage());
@@ -253,7 +253,7 @@ public class CategoryMySQLGatewayTest {
 
         // Page <1>
         expectedPage = 1;
-        query = new CategorySearchQuery(expectedPage, expectedPerPage, "", "name", "asc");
+        query = new SearchQuery(expectedPage, expectedPerPage, "", "name", "asc");
         actualResult = this.gateway.findAll(query);
 
         assertEquals(expectedPage, actualResult.currentPage());
@@ -274,7 +274,7 @@ public class CategoryMySQLGatewayTest {
 
         // Page <1>
         expectedPage = 2;
-        query = new CategorySearchQuery(expectedPage, expectedPerPage, "", "name", "asc");
+        query = new SearchQuery(expectedPage, expectedPerPage, "", "name", "asc");
         actualResult = this.gateway.findAll(query);
 
         assertEquals(expectedPage, actualResult.currentPage());
@@ -314,7 +314,7 @@ public class CategoryMySQLGatewayTest {
 
         assertEquals(3, this.repository.count());
 
-        final var query = new CategorySearchQuery(expectedPage, expectedPerPage, "Doc", "name", "asc");
+        final var query = new SearchQuery(expectedPage, expectedPerPage, "Doc", "name", "asc");
         final var actualResult = this.gateway.findAll(query);
 
         assertEquals(expectedPage, actualResult.currentPage());
@@ -354,7 +354,7 @@ public class CategoryMySQLGatewayTest {
 
         assertEquals(3, this.repository.count());
 
-        final var query = new CategorySearchQuery(expectedPage, expectedPerPage, "MOST WATCHED", "name", "asc");
+        final var query = new SearchQuery(expectedPage, expectedPerPage, "MOST WATCHED", "name", "asc");
         final var actualResult = this.gateway.findAll(query);
 
         assertEquals(expectedPage, actualResult.currentPage());
