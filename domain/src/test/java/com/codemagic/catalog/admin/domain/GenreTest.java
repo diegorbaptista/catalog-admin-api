@@ -438,4 +438,72 @@ public class GenreTest {
         assertEquals(actualUpdatedAt, actualGenre.getUpdatedAt());
     }
 
+    @Test
+    void givenAValidGenreWithoutCategories_whenAddAllCategories_thenShouldAddCategories() {
+        final var moviesID = CategoryID.from("123");
+        final var seriesID = CategoryID.from("456");
+        final var expectedCategories = List.of(moviesID, seriesID);
+        final var expectedName = "Drama";
+        final var actualGenre = Genre.newGenre(expectedName);
+
+        assertNotNull(actualGenre);
+        assertNotNull(actualGenre.getId());
+        assertEquals(expectedName, actualGenre.getName());
+        assertTrue(actualGenre.isActive());
+        assertEquals(0, actualGenre.getCategories().size());
+        assertNotNull(actualGenre.getCreatedAt());
+        assertNotNull(actualGenre.getUpdatedAt());
+        assertNull(actualGenre.getDeletedAt());
+
+        final var actualUpdatedAt = actualGenre.getUpdatedAt();
+        actualGenre.addCategories(expectedCategories);
+
+        assertEquals(expectedCategories.size(), actualGenre.getCategories().size());
+        assertTrue(actualUpdatedAt.isBefore(actualGenre.getUpdatedAt()));
+    }
+
+    @Test
+    void givenAValidGenreWithoutCategories_whenAddAllEmptyCategories_thenShouldAddCategories() {
+        final var expectedName = "Drama";
+        final var expectedCategories = List.<CategoryID>of();
+        final var actualGenre = Genre.newGenre(expectedName);
+
+        assertNotNull(actualGenre);
+        assertNotNull(actualGenre.getId());
+        assertEquals(expectedName, actualGenre.getName());
+        assertTrue(actualGenre.isActive());
+        assertEquals(0, actualGenre.getCategories().size());
+        assertNotNull(actualGenre.getCreatedAt());
+        assertNotNull(actualGenre.getUpdatedAt());
+        assertNull(actualGenre.getDeletedAt());
+
+        final var actualUpdatedAt = actualGenre.getUpdatedAt();
+        actualGenre.addCategories(expectedCategories);
+
+        assertEquals(0, actualGenre.getCategories().size());
+        assertEquals(actualUpdatedAt, actualGenre.getUpdatedAt());
+    }
+
+    @Test
+    void givenAValidGenreWithoutCategories_whenAddAllNullCategories_thenShouldAddCategories() {
+        final var expectedName = "Drama";
+        final var actualGenre = Genre.newGenre(expectedName);
+
+        assertNotNull(actualGenre);
+        assertNotNull(actualGenre.getId());
+        assertEquals(expectedName, actualGenre.getName());
+        assertTrue(actualGenre.isActive());
+        assertEquals(0, actualGenre.getCategories().size());
+        assertNotNull(actualGenre.getCreatedAt());
+        assertNotNull(actualGenre.getUpdatedAt());
+        assertNull(actualGenre.getDeletedAt());
+
+        final var actualUpdatedAt = actualGenre.getUpdatedAt();
+        actualGenre.addCategories(null);
+
+        assertEquals(0, actualGenre.getCategories().size());
+        assertEquals(actualUpdatedAt, actualGenre.getUpdatedAt());
+    }
+
+
 }

@@ -3,6 +3,7 @@ package com.codemagic.catalog.admin.domain.category;
 import com.codemagic.catalog.admin.domain.pagination.SearchQuery;
 import com.codemagic.catalog.admin.domain.pagination.Pagination;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface CategoryGateway {
@@ -11,4 +12,5 @@ public interface CategoryGateway {
     Optional<Category> findById(final CategoryID categoryID);
     Category update(final Category category);
     Pagination<Category> findAll(final SearchQuery query);
+    List<CategoryID> existsByIds(final Iterable<CategoryID> categories);
 }

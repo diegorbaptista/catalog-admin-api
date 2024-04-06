@@ -30,11 +30,10 @@ public class Genre extends AggregateRoot<GenreID> {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
-
-        validate();
+        selfValidate();
     }
 
-    private void validate() {
+    private void selfValidate() {
         final var notification = Notification.create();
         validate(notification);
         if (notification.hasErrors()) {
@@ -56,7 +55,7 @@ public class Genre extends AggregateRoot<GenreID> {
         } else {
             deactivate();
         }
-        validate();
+        selfValidate();
         this.updatedAt = InstantUtil.now();
         return this;
     }
@@ -130,12 +129,21 @@ public class Genre extends AggregateRoot<GenreID> {
         return this;
     }
 
-    public Genre removeCategory(CategoryID categoryID) {
+    public Genre removeCategory(final CategoryID categoryID) {
         if (categoryID != null) {
             this.categories.remove(categoryID);
             this.updatedAt = InstantUtil.now();
         }
         return this;
 
+    }
+
+    public Genre addCategories(final List<CategoryID> categories) {
+        if (categories == null || categories.isEmpty()) {
+            return this;
+        }
+        this.categories.addAll(categories);
+        this.updatedAt = InstantUtil.now();
+        return this;
     }
 }

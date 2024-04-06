@@ -16,13 +16,13 @@ public class ThrowsValidationHandler implements ValidationHandler {
         throw DomainException.with(handler.getErrors());
     }
     @Override
-    public ValidationHandler validate(Validation validation) {
+    public <T> T validate(Validation<T> validation) {
         try {
             validation.validate();
         } catch (Exception ex) {
             throw DomainException.with(new Error(ex.getMessage()));
         }
-        return this;
+        return null;
     }
 
     @Override

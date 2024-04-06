@@ -6,7 +6,7 @@ import com.codemagic.catalog.admin.domain.pagination.SearchQuery;
 import java.util.Optional;
 
 public interface GenreGateway {
-    Genre crete(final Genre genre);
+    Genre create(final Genre genre);
     Genre update(final Genre genre);
     Optional<Genre> findById(final GenreID id);
     Pagination<Genre> findAll(final SearchQuery query);
