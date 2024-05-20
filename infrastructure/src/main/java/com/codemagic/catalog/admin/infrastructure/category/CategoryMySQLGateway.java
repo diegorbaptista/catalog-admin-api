@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -79,6 +80,11 @@ public class CategoryMySQLGateway implements CategoryGateway {
                 result.getTotalElements(),
                 result.map(CategoryJpaEntity::toAggregate).toList()
         );
+    }
+
+    @Override
+    public List<CategoryID> existsByIds(Iterable<CategoryID> categories) {
+        return List.of();
     }
 
     private Specification<CategoryJpaEntity> assembleFilter(final String terms) {
