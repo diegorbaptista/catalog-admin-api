@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 import static com.codemagic.catalog.admin.infrastructure.util.SpecificationUtil.like;
 import static org.springframework.data.jpa.domain.Specification.where;
@@ -83,8 +84,15 @@ public class CategoryMySQLGateway implements CategoryGateway {
     }
 
     @Override
-    public List<CategoryID> existsByIds(Iterable<CategoryID> categories) {
-        return List.of();
+    public List<CategoryID> existsByIds(final Iterable<CategoryID> categories) {
+        final var ids = StreamSupport
+                .stream(categories.spliterator(), false)
+                .map(CategoryID::getValue).toList();
+
+
+        return this.repository.existsByIds(ids).stream()
+                .map(CategoryID::from)
+                .toList();
     }
 
     private Specification<CategoryJpaEntity> assembleFilter(final String terms) {

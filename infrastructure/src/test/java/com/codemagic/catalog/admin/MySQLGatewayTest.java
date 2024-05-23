@@ -12,8 +12,9 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @ActiveProfiles("test-integration")
-@DataJpaTest(includeFilters = {
-        @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".*[MySQLGateway]")
+@DataJpaTest(
+        includeFilters = {
+            @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".*[MySQLGateway]")
 })
 @ExtendWith(CleanUpExtension.class)
 public @interface MySQLGatewayTest {

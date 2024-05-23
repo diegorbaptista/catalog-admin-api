@@ -374,4 +374,28 @@ public class CategoryMySQLGatewayTest {
         assertNull(movies.getDeletedAt());
     }
 
+    @Test
+    void givenPrePersistedCategories_whenCallsExistsByIDs_thenShouldReturnCategoryIds() {
+        final var movies = Category.newCategory("Movies", "The most watched movies");
+        final var series = Category.newCategory("Series", "The most viewed series");
+        final var documentaries = Category.newCategory("Documentaries", "The most liked documentaries");
+
+        assertEquals(0, this.repository.count());
+
+        this.repository.saveAllAndFlush(List.of(
+                CategoryJpaEntity.from(movies),
+                CategoryJpaEntity.from(series),
+                CategoryJpaEntity.from(documentaries)
+        ));
+
+        assertEquals(3, this.repository.count());
+
+        final var ids = List.of(movies.getId(), series.getId(), CategoryID.from("123"));
+        final var expectedIds = List.of(movies.getId(), series.getId());
+        final var actualResult = this.gateway.existsByIds(ids);
+
+        assertTrue(expectedIds.size() == actualResult.size() && expectedIds.containsAll(actualResult));
+        assertEquals(2, actualResult.size());
+    }
+
 }
