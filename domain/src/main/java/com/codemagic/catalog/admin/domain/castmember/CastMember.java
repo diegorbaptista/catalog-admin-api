@@ -42,6 +42,14 @@ public class CastMember extends AggregateRoot<CastMemberID> {
         return new CastMember(id, name, type, now, now);
     }
 
+    public CastMember update(final String name, final CastMemberType type) {
+        this.name = name;
+        this.type = type;
+        selfValidate();
+        this.updatedAt = InstantUtil.now();
+        return this;
+    }
+
     private void selfValidate() {
         final var notification = Notification.create();
         validate(notification);
