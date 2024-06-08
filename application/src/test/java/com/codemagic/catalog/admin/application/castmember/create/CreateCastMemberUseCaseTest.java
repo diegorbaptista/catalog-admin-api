@@ -1,8 +1,6 @@
 package com.codemagic.catalog.admin.application.castmember.create;
 
 import com.codemagic.catalog.admin.application.Fixture;
-import com.codemagic.catalog.admin.application.castmember.CreateCastMemberCommand;
-import com.codemagic.catalog.admin.application.castmember.DefaultCreateCastMemberUseCase;
 import com.codemagic.catalog.admin.domain.castmember.CastMemberGateway;
 import com.codemagic.catalog.admin.domain.castmember.CastMemberType;
 import com.codemagic.catalog.admin.domain.exceptions.NotificationException;

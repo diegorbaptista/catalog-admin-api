@@ -1,4 +1,4 @@
-package com.codemagic.catalog.admin.application.castmember;
+package com.codemagic.catalog.admin.application.castmember.create;
 
 import com.codemagic.catalog.admin.domain.castmember.CastMember;
 import com.codemagic.catalog.admin.domain.castmember.CastMemberGateway;
