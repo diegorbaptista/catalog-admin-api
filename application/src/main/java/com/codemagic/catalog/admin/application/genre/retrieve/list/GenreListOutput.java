@@ -7,6 +7,7 @@ import java.time.Instant;
 import java.util.List;
 
 public record GenreListOutput(
+        String id,
         String name,
         boolean active,
         List<String> categories,
@@ -15,6 +16,7 @@ public record GenreListOutput(
 ) {
     public static GenreListOutput from(Genre genre) {
         return new GenreListOutput(
+                genre.getId().getValue(),
                 genre.getName(),
                 genre.isActive(),
                 genre.getCategories().stream().map(CategoryID::getValue).toList(),

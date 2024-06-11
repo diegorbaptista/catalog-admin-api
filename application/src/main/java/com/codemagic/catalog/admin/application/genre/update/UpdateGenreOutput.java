@@ -6,4 +6,8 @@ public record UpdateGenreOutput(String id) {
     public static UpdateGenreOutput from(final Genre genre) {
         return new UpdateGenreOutput(genre.getId().getValue());
     }
+
+    public static UpdateGenreOutput from(final String id) {
+        return new UpdateGenreOutput(id);
+    }
 }
