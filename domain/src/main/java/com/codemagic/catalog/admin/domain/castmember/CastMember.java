@@ -36,6 +36,15 @@ public class CastMember extends AggregateRoot<CastMemberID> {
                 member.getUpdatedAt());
     }
 
+    public static CastMember with(
+            final CastMemberID memberID,
+            final String name,
+            final CastMemberType type,
+            final Instant createdAt,
+            final Instant updatedAt) {
+        return new CastMember(memberID, name, type, createdAt, updatedAt);
+    }
+
     public static CastMember newMember(final String name, final CastMemberType type) {
         final var id = CastMemberID.unique();
         final var now = InstantUtil.now();
