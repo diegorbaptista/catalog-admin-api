@@ -43,7 +43,10 @@ dependencies {
     implementation 'org.flywaydb:flyway-mysql'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.mysql:mysql-connector-j'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    testImplementation 'net.datafaker:datafaker:2.2.2'
 
     testImplementation "org.testcontainers:testcontainers:1.19.7"
     testImplementation "org.testcontainers:mysql:1.19.7"
