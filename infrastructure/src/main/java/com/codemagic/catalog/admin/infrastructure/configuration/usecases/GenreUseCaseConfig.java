@@ -1,4 +1,4 @@
-package com.codemagic.catalog.admin.infrastructure.configuration;
+package com.codemagic.catalog.admin.infrastructure.configuration.usecases;
 
 import com.codemagic.catalog.admin.application.genre.create.CreateGenreUseCase;
 import com.codemagic.catalog.admin.application.genre.create.DefaultCreateGenreUseCase;
@@ -12,7 +12,6 @@ import com.codemagic.catalog.admin.application.genre.update.DefaultUpdateGenreUs
 import com.codemagic.catalog.admin.application.genre.update.UpdateGenreUseCase;
 import com.codemagic.catalog.admin.domain.category.CategoryGateway;
 import com.codemagic.catalog.admin.domain.genre.GenreGateway;
-import org.hibernate.sql.Delete;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

@@ -12,32 +12,37 @@ import java.util.stream.Collectors;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @JacksonTest
-public class CreateGenreRequestTest {
+public class UpdateGenreRequestTest {
 
     @Autowired
-    private JacksonTester<CreateGenreRequest> json;
+    private JacksonTester<UpdateGenreRequest> json;
 
     @Test
     void testUnmarshallValidParamsWithoutCategories() throws IOException {
         final var expectedName = "Drama";
+        final var expectedIsActive = true;
         final var json = """
                 {
-                "name": "%s"
+                "name": "%s",
+                "is_active": true
                 }
                 """.formatted(expectedName);
 
         final var actualJson = this.json.parse(json);
         assertThat(actualJson).hasFieldOrPropertyWithValue("name", expectedName);
+        assertThat(actualJson).hasFieldOrPropertyWithValue("active", expectedIsActive);
     }
 
     @Test
     void testUnmarshallValidParamsWithCategories() throws IOException {
         final var expectedName = "Drama";
+        final Boolean expectedIsActive = null;
         final var expectedCategories = List.of("123", "456");
 
         final var json = """
                 {
                 "name": "%s",
+                "is_active": null,
                 "categories_id": [%s]
                 }
                 """.formatted(expectedName,
@@ -47,7 +52,9 @@ public class CreateGenreRequestTest {
 
         final var actualJson = this.json.parse(json);
         assertThat(actualJson).hasFieldOrPropertyWithValue("name", expectedName);
+        assertThat(actualJson).hasFieldOrPropertyWithValue("active", expectedIsActive);
         assertThat(actualJson).hasFieldOrPropertyWithValue("categories", expectedCategories);
     }
+
 
 }
