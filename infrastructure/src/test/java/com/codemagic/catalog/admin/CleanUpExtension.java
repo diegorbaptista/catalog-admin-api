@@ -1,5 +1,6 @@
 package com.codemagic.catalog.admin;
 
+import com.codemagic.catalog.admin.infrastructure.castmember.persistence.CastMemberRepository;
 import com.codemagic.catalog.admin.infrastructure.category.persistence.CategoryRepository;
 import com.codemagic.catalog.admin.infrastructure.genre.persistence.GenreRepository;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
@@ -17,11 +18,10 @@ public class CleanUpExtension implements BeforeEachCallback {
         final var appContext = SpringExtension.getApplicationContext(context);
         cleanUp(List.of(
                 appContext.getBean(GenreRepository.class),
-                appContext.getBean(CategoryRepository.class)
+                appContext.getBean(CategoryRepository.class),
+                appContext.getBean(CastMemberRepository.class)
+
         ));
-//        final var em = appContext.getBean(TestEntityManager.class);
-//        em.flush();
-//        em.clear();
     }
 
     private void cleanUp(final Collection<CrudRepository> repositories) {
