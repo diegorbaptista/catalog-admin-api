@@ -11,6 +11,10 @@ public final class Fixture {
         return FAKER.name().fullName();
     }
 
+    public static String lorem(int count) {
+        return FAKER.lorem().characters(count);
+    }
+
     public static final class CastMember {
 
         public static CastMemberType type() {
