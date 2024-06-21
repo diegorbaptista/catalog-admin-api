@@ -7,7 +7,7 @@ import com.codemagic.catalog.admin.domain.validation.handler.Notification;
 
 import java.util.Objects;
 
-public final class DefaultCreateCastMemberUseCase extends CreateCastMemberUseCase {
+public class DefaultCreateCastMemberUseCase extends CreateCastMemberUseCase {
 
     private final CastMemberGateway gateway;
 
