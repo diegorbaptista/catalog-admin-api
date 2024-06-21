@@ -2,6 +2,7 @@ package com.codemagic.catalog.admin.infrastructure.api.controllers;
 
 import com.codemagic.catalog.admin.application.castmember.create.CreateCastMemberCommand;
 import com.codemagic.catalog.admin.application.castmember.create.CreateCastMemberUseCase;
+import com.codemagic.catalog.admin.application.castmember.delete.DeleteCastMemberUseCase;
 import com.codemagic.catalog.admin.application.castmember.retrieve.get.GetCastMemberByIDUseCase;
 import com.codemagic.catalog.admin.application.castmember.update.UpdateCastMemberCommand;
 import com.codemagic.catalog.admin.application.castmember.update.UpdateCastMemberUseCase;
@@ -24,13 +25,16 @@ public class CastMemberController implements CastMemberAPI {
     private final CreateCastMemberUseCase createCastMemberUseCase;
     private final UpdateCastMemberUseCase updateCastMemberUseCase;
     private final GetCastMemberByIDUseCase getCastMemberByIDUseCase;
+    private final DeleteCastMemberUseCase deleteCastMemberUseCase;
 
     public CastMemberController(final CreateCastMemberUseCase createCastMemberUseCase,
                                 final UpdateCastMemberUseCase updateCastMemberUseCase,
-                                final GetCastMemberByIDUseCase getCastMemberByIDUseCase) {
+                                final GetCastMemberByIDUseCase getCastMemberByIDUseCase,
+                                final DeleteCastMemberUseCase deleteCastMemberUseCase) {
         this.createCastMemberUseCase = Objects.requireNonNull(createCastMemberUseCase);
         this.updateCastMemberUseCase = Objects.requireNonNull(updateCastMemberUseCase);
         this.getCastMemberByIDUseCase = Objects.requireNonNull(getCastMemberByIDUseCase);
+        this.deleteCastMemberUseCase = Objects.requireNonNull(deleteCastMemberUseCase);
     }
 
     @Override
@@ -61,7 +65,8 @@ public class CastMemberController implements CastMemberAPI {
     }
 
     @Override
-    public ResponseEntity<Void> delete(String id) {
-        return null;
+    public ResponseEntity<Void> delete(final String id) {
+        this.deleteCastMemberUseCase.execute(id);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -4,6 +4,7 @@ import com.codemagic.catalog.admin.ControllerTest;
 import com.codemagic.catalog.admin.Fixture;
 import com.codemagic.catalog.admin.application.castmember.create.CreateCastMemberOutput;
 import com.codemagic.catalog.admin.application.castmember.create.CreateCastMemberUseCase;
+import com.codemagic.catalog.admin.application.castmember.delete.DeleteCastMemberUseCase;
 import com.codemagic.catalog.admin.application.castmember.retrieve.get.CastMemberOutput;
 import com.codemagic.catalog.admin.application.castmember.retrieve.get.GetCastMemberByIDUseCase;
 import com.codemagic.catalog.admin.application.castmember.update.UpdateCastMemberOutput;
@@ -51,6 +52,9 @@ public class CastMemberAPITest {
 
     @MockBean
     private GetCastMemberByIDUseCase getCastMemberByIDUseCase;
+
+    @MockBean
+    private DeleteCastMemberUseCase deleteCastMemberUseCase;
 
     @Test
     void testDependencies() {
@@ -292,8 +296,10 @@ public class CastMemberAPITest {
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 
+        // when
         final var response = this.mvc.perform(request).andDo(print());
 
+        // then
         response.andExpect(status().isOk())
                 .andExpect(header().string("Location", nullValue()))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -320,8 +326,10 @@ public class CastMemberAPITest {
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 
+        // when
         final var response = this.mvc.perform(request).andDo(print());
 
+        // then
         response.andExpect(status().isNotFound())
                 .andExpect(header().string("Location", nullValue()))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -331,6 +339,54 @@ public class CastMemberAPITest {
         verify(getCastMemberByIDUseCase, times(1)).execute(any());
         verify(getCastMemberByIDUseCase, times(1)).execute(eq(expectedId.getValue()));
     }
+
+    @Test
+    void givenAValidMemberId_whenCallsDeleteById_thenShouldBeReturnNoContent() throws Exception {
+        final var expectedName = Fixture.name();
+        final var expectedType = Fixture.CastMember.type();
+        final var member = CastMember.newMember(expectedName, expectedType);
+        final var expectedId = member.getId().getValue();
+
+        doNothing().when(deleteCastMemberUseCase).execute(any());
+
+        // when
+        final var request = delete("/cast-members/{id}", expectedId)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        // when
+        final var response = this.mvc.perform(request).andDo(print());
+
+        // then
+        response.andExpect(status().isNoContent())
+                .andExpect(header().string("Location", nullValue()));
+
+        verify(deleteCastMemberUseCase, times(1)).execute(any());
+        verify(deleteCastMemberUseCase, times(1)).execute(eq(expectedId));
+    }
+
+    @Test
+    void givenAnInvalidMemberId_whenCallsDeleteById_thenShouldBeReturnNoContent() throws Exception {
+        final var expectedId = CastMemberID.from("123").getValue();
+
+        doNothing().when(deleteCastMemberUseCase).execute(any());
+
+        // when
+        final var request = delete("/cast-members/{id}", expectedId)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        // when
+        final var response = this.mvc.perform(request).andDo(print());
+
+        // then
+        response.andExpect(status().isNoContent())
+                .andExpect(header().string("Location", nullValue()));
+
+        verify(deleteCastMemberUseCase, times(1)).execute(any());
+        verify(deleteCastMemberUseCase, times(1)).execute(eq(expectedId));
+    }
+
 
 
 }

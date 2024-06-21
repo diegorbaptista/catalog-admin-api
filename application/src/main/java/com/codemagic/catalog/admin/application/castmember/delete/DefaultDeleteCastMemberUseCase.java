@@ -4,7 +4,7 @@ import com.codemagic.catalog.admin.domain.castmember.CastMemberGateway;
 
 import java.util.Objects;
 
-public final class DefaultDeleteCastMemberUseCase extends DeleteCastMemberUseCase {
+public class DefaultDeleteCastMemberUseCase extends DeleteCastMemberUseCase {
 
     private final CastMemberGateway gateway;
 
