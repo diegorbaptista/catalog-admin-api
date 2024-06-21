@@ -4,6 +4,8 @@ import com.codemagic.catalog.admin.ControllerTest;
 import com.codemagic.catalog.admin.Fixture;
 import com.codemagic.catalog.admin.application.castmember.create.CreateCastMemberOutput;
 import com.codemagic.catalog.admin.application.castmember.create.CreateCastMemberUseCase;
+import com.codemagic.catalog.admin.application.castmember.retrieve.get.CastMemberOutput;
+import com.codemagic.catalog.admin.application.castmember.retrieve.get.GetCastMemberByIDUseCase;
 import com.codemagic.catalog.admin.application.castmember.update.UpdateCastMemberOutput;
 import com.codemagic.catalog.admin.application.castmember.update.UpdateCastMemberUseCase;
 import com.codemagic.catalog.admin.domain.castmember.CastMember;
@@ -28,8 +30,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -47,6 +48,9 @@ public class CastMemberAPITest {
 
     @MockBean
     private UpdateCastMemberUseCase updateCastMemberUseCase;
+
+    @MockBean
+    private GetCastMemberByIDUseCase getCastMemberByIDUseCase;
 
     @Test
     void testDependencies() {
@@ -272,5 +276,61 @@ public class CastMemberAPITest {
                 Objects.equals(expectedName, command.name())
                         && Objects.equals(expectedType, command.type())));
     }
+
+    @Test
+    void givenAValidMemberId_whenCallsGetMemberById_thenShouldReturnAMember() throws Exception {
+        // given
+        final var expectedName = Fixture.name();
+        final var expectedType = Fixture.CastMember.type();
+        final var member = CastMember.newMember(expectedName, expectedType);
+        final var expectedId = member.getId().getValue();
+
+        when(getCastMemberByIDUseCase.execute(any()))
+                .thenReturn(CastMemberOutput.from(member));
+
+        final var request = get("/cast-members/{id}", expectedId)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        final var response = this.mvc.perform(request).andDo(print());
+
+        response.andExpect(status().isOk())
+                .andExpect(header().string("Location", nullValue()))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("$.id", equalTo(expectedId)))
+                .andExpect(jsonPath("$.name", equalTo(expectedName)))
+                .andExpect(jsonPath("$.type", equalTo(expectedType.name())))
+                .andExpect(jsonPath("$.created_at", equalTo(member.getCreatedAt().toString())))
+                .andExpect(jsonPath("$.updated_at", equalTo(member.getUpdatedAt().toString())));
+
+        verify(getCastMemberByIDUseCase, times(1)).execute(any());
+        verify(getCastMemberByIDUseCase, times(1)).execute(eq(expectedId));
+    }
+
+    @Test
+    void givenAnInvalidMemberId_whenCallsGetMemberById_thenShouldReturnNotFound() throws Exception {
+        // given
+        final var expectedId = CastMemberID.from("1234");
+        final var expectedErrorMessage = "CastMember with ID 1234 was not found";
+
+        when(getCastMemberByIDUseCase.execute(any()))
+                .thenThrow(NotFoundException.with(CastMember.class, expectedId));
+
+        final var request = get("/cast-members/{id}", expectedId.getValue())
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        final var response = this.mvc.perform(request).andDo(print());
+
+        response.andExpect(status().isNotFound())
+                .andExpect(header().string("Location", nullValue()))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("$.errors", hasSize(1)))
+                .andExpect(jsonPath("$.message", equalTo(expectedErrorMessage)));
+
+        verify(getCastMemberByIDUseCase, times(1)).execute(any());
+        verify(getCastMemberByIDUseCase, times(1)).execute(eq(expectedId.getValue()));
+    }
+
 
 }

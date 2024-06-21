@@ -2,6 +2,7 @@ package com.codemagic.catalog.admin.infrastructure.api.controllers;
 
 import com.codemagic.catalog.admin.application.castmember.create.CreateCastMemberCommand;
 import com.codemagic.catalog.admin.application.castmember.create.CreateCastMemberUseCase;
+import com.codemagic.catalog.admin.application.castmember.retrieve.get.GetCastMemberByIDUseCase;
 import com.codemagic.catalog.admin.application.castmember.update.UpdateCastMemberCommand;
 import com.codemagic.catalog.admin.application.castmember.update.UpdateCastMemberUseCase;
 import com.codemagic.catalog.admin.domain.pagination.Pagination;
@@ -10,6 +11,7 @@ import com.codemagic.catalog.admin.infrastructure.castmember.models.CastMemberLi
 import com.codemagic.catalog.admin.infrastructure.castmember.models.CastMemberResponse;
 import com.codemagic.catalog.admin.infrastructure.castmember.models.CreateCastMemberRequest;
 import com.codemagic.catalog.admin.infrastructure.castmember.models.UpdateCastMemberRequest;
+import com.codemagic.catalog.admin.infrastructure.castmember.presenters.CastMemberApiPresenter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,11 +23,14 @@ public class CastMemberController implements CastMemberAPI {
 
     private final CreateCastMemberUseCase createCastMemberUseCase;
     private final UpdateCastMemberUseCase updateCastMemberUseCase;
+    private final GetCastMemberByIDUseCase getCastMemberByIDUseCase;
 
     public CastMemberController(final CreateCastMemberUseCase createCastMemberUseCase,
-                                final UpdateCastMemberUseCase updateCastMemberUseCase) {
+                                final UpdateCastMemberUseCase updateCastMemberUseCase,
+                                final GetCastMemberByIDUseCase getCastMemberByIDUseCase) {
         this.createCastMemberUseCase = Objects.requireNonNull(createCastMemberUseCase);
         this.updateCastMemberUseCase = Objects.requireNonNull(updateCastMemberUseCase);
+        this.getCastMemberByIDUseCase = Objects.requireNonNull(getCastMemberByIDUseCase);
     }
 
     @Override
@@ -38,8 +43,9 @@ public class CastMemberController implements CastMemberAPI {
     }
 
     @Override
-    public ResponseEntity<CastMemberResponse> get(String id) {
-        return null;
+    public ResponseEntity<CastMemberResponse> get(final String id) {
+        final var output = this.getCastMemberByIDUseCase.execute(id);
+        return ResponseEntity.ok(CastMemberApiPresenter.present(output));
     }
 
     @Override

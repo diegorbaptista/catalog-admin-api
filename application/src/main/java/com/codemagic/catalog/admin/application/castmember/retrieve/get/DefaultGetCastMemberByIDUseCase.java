@@ -7,7 +7,7 @@ import com.codemagic.catalog.admin.domain.exceptions.NotFoundException;
 
 import java.util.Objects;
 
-public final class DefaultGetCastMemberByIDUseCase extends GetCastMemberByIDUseCase {
+public class DefaultGetCastMemberByIDUseCase extends GetCastMemberByIDUseCase {
 
     private final CastMemberGateway gateway;
 
