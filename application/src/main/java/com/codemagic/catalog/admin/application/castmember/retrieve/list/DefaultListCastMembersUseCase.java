@@ -6,7 +6,7 @@ import com.codemagic.catalog.admin.domain.pagination.SearchQuery;
 
 import java.util.Objects;
 
-public final class DefaultListCastMembersUseCase extends ListCastMembersUseCase {
+public class DefaultListCastMembersUseCase extends ListCastMembersUseCase {
 
     private final CastMemberGateway gateway;
 

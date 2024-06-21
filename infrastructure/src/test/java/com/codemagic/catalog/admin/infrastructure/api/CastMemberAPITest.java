@@ -7,6 +7,8 @@ import com.codemagic.catalog.admin.application.castmember.create.CreateCastMembe
 import com.codemagic.catalog.admin.application.castmember.delete.DeleteCastMemberUseCase;
 import com.codemagic.catalog.admin.application.castmember.retrieve.get.CastMemberOutput;
 import com.codemagic.catalog.admin.application.castmember.retrieve.get.GetCastMemberByIDUseCase;
+import com.codemagic.catalog.admin.application.castmember.retrieve.list.ListCastMembersOutput;
+import com.codemagic.catalog.admin.application.castmember.retrieve.list.ListCastMembersUseCase;
 import com.codemagic.catalog.admin.application.castmember.update.UpdateCastMemberOutput;
 import com.codemagic.catalog.admin.application.castmember.update.UpdateCastMemberUseCase;
 import com.codemagic.catalog.admin.domain.castmember.CastMember;
@@ -14,6 +16,7 @@ import com.codemagic.catalog.admin.domain.castmember.CastMemberID;
 import com.codemagic.catalog.admin.domain.castmember.CastMemberType;
 import com.codemagic.catalog.admin.domain.exceptions.NotFoundException;
 import com.codemagic.catalog.admin.domain.exceptions.NotificationException;
+import com.codemagic.catalog.admin.domain.pagination.Pagination;
 import com.codemagic.catalog.admin.domain.validation.Error;
 import com.codemagic.catalog.admin.infrastructure.castmember.models.CreateCastMemberRequest;
 import com.codemagic.catalog.admin.infrastructure.castmember.models.UpdateCastMemberRequest;
@@ -55,6 +58,9 @@ public class CastMemberAPITest {
 
     @MockBean
     private DeleteCastMemberUseCase deleteCastMemberUseCase;
+
+    @MockBean
+    private ListCastMembersUseCase listCastMembersUseCase;
 
     @Test
     void testDependencies() {
@@ -387,6 +393,65 @@ public class CastMemberAPITest {
         verify(deleteCastMemberUseCase, times(1)).execute(eq(expectedId));
     }
 
+    @Test
+    void givenAValidQuery_whenCallsListMembers_thenShouldReturnAPaginatedMembersList() throws Exception {
+        final var expectedPage = 0;
+        final var expectedPerPage = 10;
+        final var expectedTerms = "";
+        final var expectedSort = "name";
+        final var expectedDirection = "asc";
+        final var expectedItemsCount = 2;
 
+        final var member1 = CastMember.newMember(Fixture.name(), Fixture.CastMember.type());
+        final var member2 = CastMember.newMember(Fixture.name(), Fixture.CastMember.type());
+        final var members = List.of(member1, member2);
 
+        final var expectedPagination = new Pagination<>(
+                expectedPage,
+                expectedPerPage,
+                expectedItemsCount,
+                members.stream().map(ListCastMembersOutput::from).toList()
+        );
+
+        when(listCastMembersUseCase.execute(any()))
+                .thenReturn(expectedPagination);
+
+        // when
+        final var request = get("/cast-members")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .queryParam("page", String.valueOf(expectedPage))
+                .queryParam("perPage", String.valueOf(expectedPerPage))
+                .queryParam("terms", expectedTerms)
+                .queryParam("sort", expectedSort)
+                .queryParam("direction", expectedDirection);
+
+        // when
+        final var response = this.mvc.perform(request).andDo(print());
+
+        // then
+        response.andExpect(status().isOk())
+                .andExpect(header().string("Location", nullValue()))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("$.current_page", equalTo(expectedPage)))
+                .andExpect(jsonPath("$.per_page", equalTo(expectedPerPage)))
+                .andExpect(jsonPath("$.total", equalTo(expectedItemsCount)))
+                .andExpect(jsonPath("$.items", hasSize(expectedItemsCount)))
+                .andExpect(jsonPath("$.items[0].id", equalTo(member1.getId().getValue())))
+                .andExpect(jsonPath("$.items[0].name", equalTo(member1.getName())))
+                .andExpect(jsonPath("$.items[0].type", equalTo(member1.getType().name())))
+                .andExpect(jsonPath("$.items[0].created_at", equalTo(member1.getCreatedAt().toString())))
+                .andExpect(jsonPath("$.items[1].id", equalTo(member2.getId().getValue())))
+                .andExpect(jsonPath("$.items[1].name", equalTo(member2.getName())))
+                .andExpect(jsonPath("$.items[1].type", equalTo(member2.getType().name())))
+                .andExpect(jsonPath("$.items[1].created_at", equalTo(member2.getCreatedAt().toString())));
+
+        verify(listCastMembersUseCase, times(1)).execute(argThat(query ->
+                Objects.equals(expectedPage, query.page())
+                        && Objects.equals(expectedPerPage, query.perPage())
+                        && Objects.equals(expectedTerms, query.terms())
+                        && Objects.equals(expectedSort, query.sort())
+                        && Objects.equals(expectedDirection, query.direction())
+        ));
+    }
 }
