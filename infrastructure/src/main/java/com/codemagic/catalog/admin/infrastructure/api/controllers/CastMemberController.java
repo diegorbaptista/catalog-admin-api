@@ -2,6 +2,8 @@ package com.codemagic.catalog.admin.infrastructure.api.controllers;
 
 import com.codemagic.catalog.admin.application.castmember.create.CreateCastMemberCommand;
 import com.codemagic.catalog.admin.application.castmember.create.CreateCastMemberUseCase;
+import com.codemagic.catalog.admin.application.castmember.update.UpdateCastMemberCommand;
+import com.codemagic.catalog.admin.application.castmember.update.UpdateCastMemberUseCase;
 import com.codemagic.catalog.admin.domain.pagination.Pagination;
 import com.codemagic.catalog.admin.infrastructure.api.CastMemberAPI;
 import com.codemagic.catalog.admin.infrastructure.castmember.models.CastMemberListResponse;
@@ -18,9 +20,12 @@ import java.util.Objects;
 public class CastMemberController implements CastMemberAPI {
 
     private final CreateCastMemberUseCase createCastMemberUseCase;
+    private final UpdateCastMemberUseCase updateCastMemberUseCase;
 
-    public CastMemberController(final CreateCastMemberUseCase createCastMemberUseCase) {
+    public CastMemberController(final CreateCastMemberUseCase createCastMemberUseCase,
+                                final UpdateCastMemberUseCase updateCastMemberUseCase) {
         this.createCastMemberUseCase = Objects.requireNonNull(createCastMemberUseCase);
+        this.updateCastMemberUseCase = Objects.requireNonNull(updateCastMemberUseCase);
     }
 
     @Override
@@ -38,8 +43,10 @@ public class CastMemberController implements CastMemberAPI {
     }
 
     @Override
-    public ResponseEntity<?> update(String id, UpdateCastMemberRequest input) {
-        return null;
+    public ResponseEntity<?> update(final String id, final UpdateCastMemberRequest input) {
+        final var command = UpdateCastMemberCommand.with(id, input.name(), input.type());
+        final var output = this.updateCastMemberUseCase.execute(command);
+        return ResponseEntity.ok(output);
     }
 
     @Override
