@@ -81,7 +81,7 @@ public class GenreAPITest {
         this.mvc.perform(request)
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(header().string("Location", "genres/".concat(expectedId)))
+                .andExpect(header().string("Location", "/genres/".concat(expectedId)))
                 .andExpect(header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.id", equalTo(expectedId)));
 

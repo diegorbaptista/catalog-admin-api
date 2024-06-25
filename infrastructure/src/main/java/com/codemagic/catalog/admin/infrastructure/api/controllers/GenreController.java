@@ -47,7 +47,7 @@ public class GenreController implements GenreAPI {
         final var command = CreateGenreCommand.with(input.name(), input.categories());
         final var output = this.createGenreUseCase.execute(command);
         return ResponseEntity
-                .created(URI.create("genres/".concat(output.id())))
+                .created(URI.create("/genres/".concat(output.id())))
                 .body(output);
     }
 

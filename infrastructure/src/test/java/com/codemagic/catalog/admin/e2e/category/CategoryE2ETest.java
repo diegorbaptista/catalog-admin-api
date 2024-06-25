@@ -1,9 +1,7 @@
 package com.codemagic.catalog.admin.e2e.category;
 
 import com.codemagic.catalog.admin.E2ETest;
-import com.codemagic.catalog.admin.domain.category.CategoryID;
-import com.codemagic.catalog.admin.infrastructure.category.models.CategoryResponse;
-import com.codemagic.catalog.admin.infrastructure.category.models.CreateCategoryRequest;
+import com.codemagic.catalog.admin.e2e.MockDsl;
 import com.codemagic.catalog.admin.infrastructure.category.models.UpdateCategoryRequest;
 import com.codemagic.catalog.admin.infrastructure.category.persistence.CategoryRepository;
 import io.swagger.v3.core.util.Json;
@@ -13,12 +11,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-
-import java.util.Objects;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
@@ -29,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @E2ETest
 @Testcontainers
-public class CategoryE2ETest {
+public class CategoryE2ETest implements MockDsl {
 
     @Autowired
     private MockMvc mvc;
@@ -48,6 +43,11 @@ public class CategoryE2ETest {
         final var mappedPort = MYSQL_CONTAINER.getMappedPort(3306);
         System.out.printf("Container is running on port %s\n", mappedPort);
         registry.add("mysql.port", () -> mappedPort);
+    }
+
+    @Override
+    public MockMvc mvc() {
+        return this.mvc;
     }
 
     @Test
@@ -208,12 +208,8 @@ public class CategoryE2ETest {
         final var expectedActive = true;
 
         final var requestBody = new UpdateCategoryRequest(expectedName, expectedDescription, expectedActive);
-        final var request = put("/categories/".concat(actualCategoryId.getValue()))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .content(Json.mapper().writeValueAsString(requestBody));
 
-        this.mvc.perform(request)
+        updateACategory(actualCategoryId.getValue(), requestBody)
                 .andExpect(status().isOk());
 
         final var actualCategory = retrieveACategory(actualCategoryId.getValue());
@@ -239,12 +235,7 @@ public class CategoryE2ETest {
         final var expectedActive = false;
 
         final var requestBody = new UpdateCategoryRequest(expectedName, expectedDescription, expectedActive);
-        final var request = put("/categories/".concat(actualCategoryId.getValue()))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .content(Json.mapper().writeValueAsString(requestBody));
-
-        this.mvc.perform(request)
+        updateACategory(actualCategoryId.getValue(), requestBody)
                 .andExpect(status().isOk());
 
         final var actualCategory = retrieveACategory(actualCategoryId.getValue());
@@ -268,67 +259,10 @@ public class CategoryE2ETest {
         final var actualCategoryId = givenACategory(expectedName, expectedDescription);
         assertEquals(1, repository.count());
 
-        final var request = delete("/categories/".concat(actualCategoryId.getValue()))
-                .contentType(MediaType.APPLICATION_JSON);
-
-        this.mvc.perform(request)
+        deleteACategory(actualCategoryId.getValue())
                 .andExpect(status().isNoContent());
 
         assertEquals(0, repository.count());
         assertFalse(this.repository.existsById(actualCategoryId.getValue()));
     }
-
-
-    private CategoryID givenACategory(final String categoryName, final String categoryDescription) throws Exception {
-        final var requestBody = new CreateCategoryRequest(categoryName, categoryDescription);
-
-        final var request = post("/categories")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .content(Json.mapper().writeValueAsString(requestBody));
-
-        final var actualId = Objects.requireNonNull(this.mvc.perform(request)
-                        .andExpect(status().isCreated())
-                        .andReturn()
-                        .getResponse()
-                        .getHeader("Location"))
-                        .replace("/categories/", "");
-
-        return CategoryID.from(actualId);
-    }
-
-    private CategoryResponse retrieveACategory(final String categoryId) throws Exception {
-
-        final var request = get("/categories/".concat(categoryId))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON);
-
-        final var json = this.mvc.perform(request)
-                .andExpect(status().isOk())
-                .andReturn()
-                .getResponse().getContentAsString();
-
-        return Json.mapper().readValue(json, CategoryResponse.class);
-    }
-
-    private ResultActions listCategories(final int page,
-                                         final int perPage,
-                                         final String terms,
-                                         final String sort,
-                                         final String direction) throws Exception {
-        final var request = get("/categories")
-                .queryParam("page", String.valueOf(page))
-                .queryParam("perPage", String.valueOf(perPage))
-                .queryParam("terms", terms)
-                .queryParam("sort", sort)
-                .queryParam("direction", direction)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON);
-        return this.mvc.perform(request);
-    }
-
-    private ResultActions listCategories(final int page, final int perPage) throws Exception {
-        return listCategories(page, perPage, "", "", "");
-    }
-
 }
