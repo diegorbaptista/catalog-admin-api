@@ -3,6 +3,8 @@ package com.codemagic.catalog.admin.domain.video;
 import java.util.Arrays;
 import java.util.Optional;
 
+import static java.util.Arrays.stream;
+
 public enum Rating {
 
     ER("ER"),

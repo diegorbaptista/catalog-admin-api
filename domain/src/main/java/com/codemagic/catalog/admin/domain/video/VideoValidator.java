@@ -1,5 +1,6 @@
 package com.codemagic.catalog.admin.domain.video;
 
+import com.codemagic.catalog.admin.domain.exceptions.DomainException;
 import com.codemagic.catalog.admin.domain.validation.Error;
 import com.codemagic.catalog.admin.domain.validation.ValidationHandler;
 import com.codemagic.catalog.admin.domain.validation.Validator;

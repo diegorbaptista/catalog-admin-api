@@ -163,9 +163,7 @@ public class Video extends AggregateRoot<VideoID> {
 
     @Override
     public void validate(final ValidationHandler handler) {
-        if (handler.hasErrors()) {
-            throw DomainException.with(handler.getErrors());
-        }
+        new VideoValidator(this, handler).validate();
     }
 
     public Video setBanner(final ImageMedia banner) {

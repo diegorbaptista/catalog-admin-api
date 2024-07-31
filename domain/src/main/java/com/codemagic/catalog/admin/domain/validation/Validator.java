@@ -1,7 +1,7 @@
 package com.codemagic.catalog.admin.domain.validation;
 
 public abstract class Validator {
-    private final ValidationHandler handler;
+    protected final ValidationHandler handler;
     protected Validator(ValidationHandler handler) {
         this.handler = handler;
     }
