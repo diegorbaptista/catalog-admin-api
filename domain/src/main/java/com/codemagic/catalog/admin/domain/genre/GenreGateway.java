@@ -3,6 +3,7 @@ package com.codemagic.catalog.admin.domain.genre;
 import com.codemagic.catalog.admin.domain.pagination.Pagination;
 import com.codemagic.catalog.admin.domain.pagination.SearchQuery;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface GenreGateway {
@@ -11,4 +12,5 @@ public interface GenreGateway {
     Optional<Genre> findById(final GenreID id);
     Pagination<Genre> findAll(final SearchQuery query);
     void deleteById(final GenreID id);
+    List<GenreID> existsByIds(final Iterable<GenreID> genres);
 }
