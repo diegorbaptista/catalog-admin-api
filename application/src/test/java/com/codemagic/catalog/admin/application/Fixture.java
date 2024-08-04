@@ -6,8 +6,11 @@ import com.codemagic.catalog.admin.domain.category.Category;
 import com.codemagic.catalog.admin.domain.genre.Genre;
 import com.codemagic.catalog.admin.domain.video.Rating;
 import com.codemagic.catalog.admin.domain.video.Resource;
+import com.codemagic.catalog.admin.domain.video.Video;
 import net.datafaker.Faker;
 
+import java.time.Year;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -102,6 +105,23 @@ public final class Fixture {
     }
 
     public static final class Videos {
+
+        private static final Video MOVIE = Video.newVideo(
+                title(),
+                description(),
+                Year.of(launchedAt()),
+                duration(),
+                rating(),
+                opened(),
+                published(),
+                Collections.emptySet(),
+                Collections.emptySet(),
+                Collections.emptySet()
+        );
+
+        public static Video video() {
+            return Video.with(MOVIE);
+        }
 
         public static String title() {
             return FAKER.oscarMovie().movieName();
