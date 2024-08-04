@@ -2,12 +2,14 @@ package com.codemagic.catalog.admin.application.video.create;
 
 import com.codemagic.catalog.admin.application.Fixture;
 import com.codemagic.catalog.admin.application.UseCaseTest;
+import com.codemagic.catalog.admin.application.video.update.UpdateVideoCommand;
 import com.codemagic.catalog.admin.domain.castmember.CastMember;
 import com.codemagic.catalog.admin.domain.castmember.CastMemberGateway;
 import com.codemagic.catalog.admin.domain.castmember.CastMemberID;
 import com.codemagic.catalog.admin.domain.category.Category;
 import com.codemagic.catalog.admin.domain.category.CategoryGateway;
 import com.codemagic.catalog.admin.domain.category.CategoryID;
+import com.codemagic.catalog.admin.domain.exceptions.InternalErrorException;
 import com.codemagic.catalog.admin.domain.exceptions.NotificationException;
 import com.codemagic.catalog.admin.domain.genre.Genre;
 import com.codemagic.catalog.admin.domain.genre.GenreGateway;
@@ -1112,7 +1114,61 @@ public class CreateVideoUseCaseTest extends UseCaseTest {
     }
 
     @Test
-    void givenAValidCommand_whenCallsCreateVideoThrowsAError_thenShouldCallClearResource() {}
+    void givenAValidCommand_whenCallsCreateVideoThrowsAError_thenShouldCallClearResource() {
+        // given
+        final var expectedTitle = Fixture.Videos.title();
+        final var expectedDescription = Fixture.Videos.title();
+        final var expectedLaunchedAt = Fixture.Videos.launchedAt();
+        final var expectedDuration = Fixture.Videos.duration();
+        final var expectedRating = Fixture.Videos.rating().name();
+        final var expectedOpened = Fixture.Videos.opened();
+        final var expectedPublished = Fixture.Videos.published();
+        final var expectedCategories = Set.<CategoryID>of();
+        final var expectedGenres = Set.<GenreID>of();
+        final var expectedMembers = Set.<CastMemberID>of();
+        final Resource expectedTrailer = null;
+        final Resource expectedVideo = null;
+        final Resource expectedBanner = null;
+        final Resource expectedThumbnail = null;
+        final Resource expectedThumbnailHalf = null;
+        final var expectedErrorMessage = "An error on create video was thrown [id:";
+
+        final var command = CreateVideoCommand.with(
+                expectedTitle,
+                expectedDescription,
+                expectedLaunchedAt,
+                expectedDuration,
+                expectedRating,
+                expectedOpened,
+                expectedPublished,
+                asString(expectedCategories),
+                asString(expectedGenres),
+                asString(expectedMembers),
+                expectedVideo,
+                expectedTrailer,
+                expectedBanner,
+                expectedThumbnail,
+                expectedThumbnailHalf
+        );
+
+        doThrow(InternalErrorException.with("An internal server error", new RuntimeException(expectedErrorMessage)))
+                .when(videoGateway).create(any());
+
+        // when
+        final var actualException = assertThrows(InternalErrorException.class, () -> this.useCase.execute(command));
+
+        // then
+        assertNotNull(actualException);
+        assertTrue(actualException.getMessage().startsWith(expectedErrorMessage));
+
+        verify(categoryGateway, never()).existsByIds(any());
+        verify(videoGateway, times(1)).create(any());
+        verify(genreGateway, never()).existsByIds(any());
+        verify(castMemberGateway, never()).existsByIds(any());
+        verify(mediaResourceGateway, times(1)).clear(any());
+        verify(mediaResourceGateway, never()).storeImage(any(), any());
+        verify(mediaResourceGateway, never()).storeAudioVideo(any(), any());
+    }
 
     private void mockImageMedia() {
         when(this.mediaResourceGateway.storeImage(any(), any())).thenAnswer(answer -> {
