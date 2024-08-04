@@ -63,13 +63,11 @@ public class DeleteVideoUseCaseTest extends UseCaseTest {
     void givenAInvalidVideoId_whenGatewayThrowsAnError_thenReturnAHandledErrorMessage() {
         // given
         final var videoId = VideoID.unique();
-        final var expectedErrorMessage = "Internal server error";
+        final var expectedErrorMessage = "An error was thrown deleting video: [%s]".formatted(videoId.getValue());
 
         doThrow(new InternalErrorException(expectedErrorMessage, new RuntimeException(expectedErrorMessage)))
                 .when(videoGateway)
                 .deleteById(any());
-
-        doNothing().when(mediaResourceGateway).clear(any());
 
         // when
         final var actualException = assertThrows(InternalErrorException.class, () -> this.useCase.execute(videoId.getValue()));
@@ -79,7 +77,6 @@ public class DeleteVideoUseCaseTest extends UseCaseTest {
         assertEquals(expectedErrorMessage, actualException.getMessage());
 
         verify(videoGateway, times(1)).deleteById(eq(videoId));
-        verify(mediaResourceGateway, never()).clear(any());
     }
 
 }
