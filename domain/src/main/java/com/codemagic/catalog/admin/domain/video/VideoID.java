@@ -3,7 +3,8 @@ package com.codemagic.catalog.admin.domain.video;
 import com.codemagic.catalog.admin.domain.Identifier;
 
 import java.util.Objects;
-import java.util.UUID;
+
+import static com.codemagic.catalog.admin.domain.util.IdentifierUtil.uuid;
 
 public class VideoID extends Identifier {
 
@@ -15,15 +16,11 @@ public class VideoID extends Identifier {
     }
 
     public static VideoID unique() {
-        return from(UUID.randomUUID());
+        return from(uuid());
     }
 
     public static VideoID from(final String id) {
         return new VideoID(id);
-    }
-
-    public static VideoID from(final UUID id) {
-        return new VideoID(id.toString().toLowerCase());
     }
 
     @Override

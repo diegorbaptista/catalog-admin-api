@@ -3,7 +3,8 @@ package com.codemagic.catalog.admin.domain.genre;
 import com.codemagic.catalog.admin.domain.Identifier;
 
 import java.util.Objects;
-import java.util.UUID;
+
+import static com.codemagic.catalog.admin.domain.util.IdentifierUtil.uuid;
 
 public class GenreID extends Identifier {
 
@@ -14,15 +15,11 @@ public class GenreID extends Identifier {
     }
 
     public static GenreID unique() {
-        return from(UUID.randomUUID());
+        return from(uuid());
     }
 
     public static GenreID from(final String id) {
         return new GenreID(id);
-    }
-
-    public static GenreID from(UUID id) {
-        return new GenreID(id.toString().toLowerCase());
     }
 
     @Override

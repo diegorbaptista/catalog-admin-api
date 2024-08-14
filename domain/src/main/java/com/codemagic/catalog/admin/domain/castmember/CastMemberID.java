@@ -3,7 +3,8 @@ package com.codemagic.catalog.admin.domain.castmember;
 import com.codemagic.catalog.admin.domain.Identifier;
 
 import java.util.Objects;
-import java.util.UUID;
+
+import static com.codemagic.catalog.admin.domain.util.IdentifierUtil.uuid;
 
 public class CastMemberID extends Identifier {
 
@@ -14,15 +15,11 @@ public class CastMemberID extends Identifier {
     }
 
     public static CastMemberID unique() {
-        return from(UUID.randomUUID());
+        return from(uuid());
     }
 
     public static CastMemberID from(final String id) {
         return new CastMemberID(id);
-    }
-
-    public static CastMemberID from(UUID id) {
-        return new CastMemberID(id.toString().toLowerCase());
     }
 
     @Override

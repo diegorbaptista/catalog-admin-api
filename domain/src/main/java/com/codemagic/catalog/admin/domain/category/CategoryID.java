@@ -3,7 +3,8 @@ package com.codemagic.catalog.admin.domain.category;
 import com.codemagic.catalog.admin.domain.Identifier;
 
 import java.util.Objects;
-import java.util.UUID;
+
+import static com.codemagic.catalog.admin.domain.util.IdentifierUtil.*;
 
 public class CategoryID extends Identifier {
     private final String value;
@@ -14,15 +15,11 @@ public class CategoryID extends Identifier {
     }
 
     public static CategoryID unique() {
-        return from(UUID.randomUUID());
+        return from(uuid());
     }
 
     public static CategoryID from(final String id) {
         return new CategoryID(id);
-    }
-
-    public static CategoryID from(final UUID id) {
-        return new CategoryID(id.toString().toLowerCase());
     }
 
     @Override
