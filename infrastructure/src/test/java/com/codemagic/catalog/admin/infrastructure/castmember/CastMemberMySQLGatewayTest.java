@@ -36,7 +36,7 @@ public class CastMemberMySQLGatewayTest {
     void givenAValidParams_whenCallsCreateMember_thenShouldCreateAMember() {
         // given
         final var expectedName = Fixture.name();
-        final var expectedType = Fixture.CastMember.type();
+        final var expectedType = Fixture.CastMembers.type();
         final var member = CastMember.newMember(expectedName, expectedType);
         final var expectedId = member.getId().getValue();
         assertEquals(0, repository.count());
@@ -108,7 +108,7 @@ public class CastMemberMySQLGatewayTest {
     void givenAValidMemberId_whenCallsDeleteMemberById_thenShouldDeleteAMember() {
         // given
         final var expectedName = Fixture.name();
-        final var expectedType = Fixture.CastMember.type();
+        final var expectedType = Fixture.CastMembers.type();
         final var member = CastMember.newMember(expectedName, expectedType);
         final var expectedId = member.getId().getValue();
 
@@ -127,7 +127,7 @@ public class CastMemberMySQLGatewayTest {
     void givenAInvalidMemberId_whenCallsDeleteMemberById_thenShouldBeOK() {
         // given
         final var expectedName = Fixture.name();
-        final var expectedType = Fixture.CastMember.type();
+        final var expectedType = Fixture.CastMembers.type();
         final var member = CastMember.newMember(expectedName, expectedType);
         final var expectedId = CastMemberID.from("123").getValue();
 
@@ -146,7 +146,7 @@ public class CastMemberMySQLGatewayTest {
     void givenAValidMember_whenCallsFindMemberById_thenShouldReturnAMember() {
         // given
         final var expectedName = Fixture.name();
-        final var expectedType = Fixture.CastMember.type();
+        final var expectedType = Fixture.CastMembers.type();
         final var member = CastMember.newMember(expectedName, expectedType);
         final var expectedId = member.getId().getValue();
 
@@ -181,7 +181,7 @@ public class CastMemberMySQLGatewayTest {
     void givenAInvalidMemberId_whenCallsFindMemberById_thenShouldReturnEmpty() {
         // given
         final var expectedName = Fixture.name();
-        final var expectedType = Fixture.CastMember.type();
+        final var expectedType = Fixture.CastMembers.type();
         final var member = CastMember.newMember(expectedName, expectedType);
         final var expectedId = CastMemberID.from("123").getValue();
 

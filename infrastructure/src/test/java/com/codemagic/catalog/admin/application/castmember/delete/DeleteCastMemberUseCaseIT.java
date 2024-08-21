@@ -41,7 +41,7 @@ public class DeleteCastMemberUseCaseIT {
     void givenAValidMemberId_whenCallsDeleteMember_thenShouldDeleteAMember() {
         // given
         final var expectedName = Fixture.name();
-        final var expectedType = Fixture.CastMember.type();
+        final var expectedType = Fixture.CastMembers.type();
         final var member = this.gateway.create(CastMember.newMember(expectedName, expectedType));;
         final var expectedId = member.getId().getValue();
         assertEquals(1, this.repository.count());
@@ -58,7 +58,7 @@ public class DeleteCastMemberUseCaseIT {
     void givenAmInvalidMemberId_whenCallsDeleteMember_thenShouldBeOk() {
         // given
         final var expectedName = Fixture.name();
-        final var expectedType = Fixture.CastMember.type();
+        final var expectedType = Fixture.CastMembers.type();
         final var member = this.gateway.create(CastMember.newMember(expectedName, expectedType));;
         final var expectedId = CastMemberID.from("123").getValue();
         assertEquals(1, this.repository.count());

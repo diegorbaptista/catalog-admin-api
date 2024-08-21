@@ -1,6 +1,6 @@
 package com.codemagic.catalog.admin.application.castmember.retrieve.list;
 
-import com.codemagic.catalog.admin.application.Fixture;
+import com.codemagic.catalog.admin.Fixture;
 import com.codemagic.catalog.admin.domain.castmember.CastMember;
 import com.codemagic.catalog.admin.domain.castmember.CastMemberGateway;
 import com.codemagic.catalog.admin.domain.pagination.Pagination;
@@ -30,9 +30,9 @@ public class ListCastMembersUseCaseTest {
     void givenAValidTerms_whenCallListCastMember_thenShouldReturnPaginatedMembers() {
         // given
         final var members = List.of(
-                CastMember.newMember(Fixture.name(), Fixture.CastMember.type()),
-                CastMember.newMember(Fixture.name(), Fixture.CastMember.type()),
-                CastMember.newMember(Fixture.name(), Fixture.CastMember.type()));
+                CastMember.newMember(Fixture.name(), Fixture.CastMembers.type()),
+                CastMember.newMember(Fixture.name(), Fixture.CastMembers.type()),
+                CastMember.newMember(Fixture.name(), Fixture.CastMembers.type()));
         final var expectedPage = 0;
         final var expectedPerPage = 10;
         final var expectedItemsCount = 3;

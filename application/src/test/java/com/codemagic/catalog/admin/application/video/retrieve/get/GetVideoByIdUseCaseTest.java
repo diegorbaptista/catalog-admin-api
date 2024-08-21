@@ -1,6 +1,6 @@
 package com.codemagic.catalog.admin.application.video.retrieve.get;
 
-import com.codemagic.catalog.admin.application.Fixture;
+import com.codemagic.catalog.admin.Fixture;
 import com.codemagic.catalog.admin.application.UseCaseTest;
 import com.codemagic.catalog.admin.domain.castmember.CastMember;
 import com.codemagic.catalog.admin.domain.category.Category;

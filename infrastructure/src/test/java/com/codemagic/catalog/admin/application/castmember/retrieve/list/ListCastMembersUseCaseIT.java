@@ -42,9 +42,9 @@ public class ListCastMembersUseCaseIT {
     @Test
     void givenAValidTerms_whenCallsListMembers_thenShouldReturnMembers() {
         // given
-        final var member1 = this.gateway.create(CastMember.newMember(Fixture.name(), Fixture.CastMember.type()));
-        this.gateway.create(CastMember.newMember(Fixture.name(), Fixture.CastMember.type()));
-        this.gateway.create(CastMember.newMember(Fixture.name(), Fixture.CastMember.type()));
+        final var member1 = this.gateway.create(CastMember.newMember(Fixture.name(), Fixture.CastMembers.type()));
+        this.gateway.create(CastMember.newMember(Fixture.name(), Fixture.CastMembers.type()));
+        this.gateway.create(CastMember.newMember(Fixture.name(), Fixture.CastMembers.type()));
         final var genres = List.of(member1);
 
         final var expectedPage = 0;
@@ -99,9 +99,9 @@ public class ListCastMembersUseCaseIT {
     @Test
     void givenAValidSortByCreatedAt_whenCallsListMembers_thenShouldReturnMembersSorted() {
         // given
-        final var member1 = this.gateway.create(CastMember.newMember(Fixture.name(), Fixture.CastMember.type()));
-        final var member2 = this.gateway.create(CastMember.newMember(Fixture.name(), Fixture.CastMember.type()));
-        final var member3 = this.gateway.create(CastMember.newMember(Fixture.name(), Fixture.CastMember.type()));
+        final var member1 = this.gateway.create(CastMember.newMember(Fixture.name(), Fixture.CastMembers.type()));
+        final var member2 = this.gateway.create(CastMember.newMember(Fixture.name(), Fixture.CastMembers.type()));
+        final var member3 = this.gateway.create(CastMember.newMember(Fixture.name(), Fixture.CastMembers.type()));
         final var genres = List.of(member1, member2, member3);
 
         final var expectedPage = 0;
@@ -130,9 +130,9 @@ public class ListCastMembersUseCaseIT {
     @Test
     void givenAValidSortByCreatedAtAndDirectionDesc_whenCallsListMembers_thenShouldReturnMembersSorted() {
         // given
-        final var member1 = this.gateway.create(CastMember.newMember(Fixture.name(), Fixture.CastMember.type()));
-        final var member2 = this.gateway.create(CastMember.newMember(Fixture.name(), Fixture.CastMember.type()));
-        final var member3 = this.gateway.create(CastMember.newMember(Fixture.name(), Fixture.CastMember.type()));
+        final var member1 = this.gateway.create(CastMember.newMember(Fixture.name(), Fixture.CastMembers.type()));
+        final var member2 = this.gateway.create(CastMember.newMember(Fixture.name(), Fixture.CastMembers.type()));
+        final var member3 = this.gateway.create(CastMember.newMember(Fixture.name(), Fixture.CastMembers.type()));
         final var genres = List.of(member3, member2, member1);
 
         final var expectedPage = 0;

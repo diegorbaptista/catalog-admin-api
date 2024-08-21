@@ -39,7 +39,7 @@ public class GetCastMemberByIDUseCaseIT {
     void givenAValidMemberId_whenCallGetById_thenShouldReturnAMember() {
        // given
        final var expectedName = Fixture.name();
-       final var expectedType = Fixture.CastMember.type();
+       final var expectedType = Fixture.CastMembers.type();
 
        assertEquals(0, this.repository.count());
        final var actualMember = this.gateway.create(CastMember.newMember(expectedName, expectedType));
@@ -61,7 +61,7 @@ public class GetCastMemberByIDUseCaseIT {
     void givenAnInvalidMemberId_whenCallsGeyById_thenShouldReturnANotFoundException() {
         // given
         final var expectedName = Fixture.name();
-        final var expectedType = Fixture.CastMember.type();
+        final var expectedType = Fixture.CastMembers.type();
         final var actualMember = this.gateway.create(CastMember.newMember(expectedName, expectedType));
         final var expectedId = CastMemberID.from("123").getValue();
         final var expectedErrorCount = 1;

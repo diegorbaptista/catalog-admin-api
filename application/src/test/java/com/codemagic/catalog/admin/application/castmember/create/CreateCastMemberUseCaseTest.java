@@ -1,6 +1,6 @@
 package com.codemagic.catalog.admin.application.castmember.create;
 
-import com.codemagic.catalog.admin.application.Fixture;
+import com.codemagic.catalog.admin.Fixture;
 import com.codemagic.catalog.admin.domain.castmember.CastMemberGateway;
 import com.codemagic.catalog.admin.domain.castmember.CastMemberType;
 import com.codemagic.catalog.admin.domain.exceptions.NotificationException;
@@ -37,7 +37,7 @@ public class CreateCastMemberUseCaseTest {
     void givenAValidCommand_whenCallsCreateMember_thenShouldReturnAMember() {
         // given
         final var expectedName = Fixture.name();
-        final var expectedType = Fixture.CastMember.type();
+        final var expectedType = Fixture.CastMembers.type();
         final var command = CreateCastMemberCommand.with(expectedName, expectedType);
 
         when(gateway.create(any())).thenAnswer(returnsFirstArg());
@@ -60,7 +60,7 @@ public class CreateCastMemberUseCaseTest {
     void givenAInvalidNullName_whenCallsCreateMember_thenShouldReturnANotificationException() {
         // given
         final String expectedName = null;
-        final var expectedType = Fixture.CastMember.type();
+        final var expectedType = Fixture.CastMembers.type();
         final var expectedErrorCount = 1;
         final var expectedErrorMessage = "'name' should not be null";
         final var command = CreateCastMemberCommand.with(expectedName, expectedType);
@@ -79,7 +79,7 @@ public class CreateCastMemberUseCaseTest {
     void givenAInvalidEmptyName_whenCallsCreateMember_thenShouldReturnANotificationException() {
         // given
         final var expectedName = "  ";
-        final var expectedType = Fixture.CastMember.type();
+        final var expectedType = Fixture.CastMembers.type();
         final var expectedErrorCount = 1;
         final var expectedErrorMessage = "'name' should not be empty";
 

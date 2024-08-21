@@ -22,11 +22,11 @@ public class VideoTest {
     @Test
     void givenAValidParams_whenCallsNewVideo_thenShouldCreateANewVideo() {
         // given
-        final var expectedTitle = Fixture.Video.name();
+        final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.lorem(500);
-        final var expectedLaunchedAt = Fixture.Video.launchedAt();
+        final var expectedLaunchedAt = Year.of(Fixture.Videos.launchedAt());
         final var expectedDuration = 120.0;
-        final var expectedRating = Fixture.Video.rating();
+        final var expectedRating = Fixture.Videos.rating();
         final var expectedOpened = false;
         final var expectedPublished = false;
         final var expectedCategories = Set.of(CategoryID.unique());
@@ -74,11 +74,11 @@ public class VideoTest {
     @Test
     void givenAValidParams_whenCallsUpdateVideoTitle_thenUpdateVideoTitle() {
         // given
-        final var expectedTitle = Fixture.Video.name();
+        final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.lorem(500);
-        final var expectedLaunchedAt = Fixture.Video.launchedAt();
+        final var expectedLaunchedAt = Year.of(Fixture.Videos.launchedAt());
         final var expectedDuration = 120.0;
-        final var expectedRating = Fixture.Video.rating();
+        final var expectedRating = Fixture.Videos.rating();
         final var expectedOpened = false;
         final var expectedPublished = false;
         final var expectedCategories = Set.of(CategoryID.unique());
@@ -162,11 +162,11 @@ public class VideoTest {
     @Test
     void givenAValidParams_whenCallsUpdateVideoDescription_thenUpdateVideoDescription() {
         // given
-        final var expectedTitle = Fixture.Video.name();
+        final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.lorem(500);
-        final var expectedLaunchedAt = Fixture.Video.launchedAt();
+        final var expectedLaunchedAt = Year.of(Fixture.Videos.launchedAt());
         final var expectedDuration = 120.0;
-        final var expectedRating = Fixture.Video.rating();
+        final var expectedRating = Fixture.Videos.rating();
         final var expectedOpened = false;
         final var expectedPublished = false;
         final var expectedCategories = Set.of(CategoryID.unique());
@@ -250,11 +250,11 @@ public class VideoTest {
     @Test
     void givenAValidParams_whenCallsUpdateVideoLaunchedYear_thenUpdateVideoLaunchedYear() {
         // given
-        final var expectedTitle = Fixture.Video.name();
+        final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.lorem(500);
         final var expectedLaunchedAt = Year.of(2021);
         final var expectedDuration = 120.0;
-        final var expectedRating = Fixture.Video.rating();
+        final var expectedRating = Fixture.Videos.rating();
         final var expectedOpened = false;
         final var expectedPublished = false;
         final var expectedCategories = Set.of(CategoryID.unique());
@@ -338,11 +338,11 @@ public class VideoTest {
     @Test
     void givenAValidParams_whenCallsUpdateVideoDuration_thenUpdateVideoDuration() {
         // given
-        final var expectedTitle = Fixture.Video.name();
+        final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.lorem(500);
-        final var expectedLaunchedAt = Fixture.Video.launchedAt();
+        final var expectedLaunchedAt = Year.of(Fixture.Videos.launchedAt());
         final var expectedDuration = 120.0;
-        final var expectedRating = Fixture.Video.rating();
+        final var expectedRating = Fixture.Videos.rating();
         final var expectedOpened = false;
         final var expectedPublished = false;
         final var expectedCategories = Set.of(CategoryID.unique());
@@ -426,9 +426,9 @@ public class VideoTest {
     @Test
     void givenAValidParams_whenCallsUpdateVideoRating_thenUpdateVideoRating() {
         // given
-        final var expectedTitle = Fixture.Video.name();
+        final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.lorem(500);
-        final var expectedLaunchedAt = Fixture.Video.launchedAt();
+        final var expectedLaunchedAt = Year.of(Fixture.Videos.launchedAt());
         final var expectedDuration = 120.0;
         final var expectedRating = Rating.L;
         final var expectedOpened = false;
@@ -514,11 +514,11 @@ public class VideoTest {
     @Test
     void givenAValidParams_whenCallsUpdateVideoOpened_thenUpdateVideoOpened() {
         // given
-        final var expectedTitle = Fixture.Video.name();
+        final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.lorem(500);
-        final var expectedLaunchedAt = Fixture.Video.launchedAt();
+        final var expectedLaunchedAt = Year.of(Fixture.Videos.launchedAt());
         final var expectedDuration = 120.0;
-        final var expectedRating = Fixture.Video.rating();
+        final var expectedRating = Fixture.Videos.rating();
         final var expectedOpened = true;
         final var expectedPublished = false;
         final var expectedCategories = Set.of(CategoryID.unique());
@@ -602,11 +602,11 @@ public class VideoTest {
     @Test
     void givenAValidParams_whenCallsUpdateVideoPublished_thenUpdateVideoPublished() {
         // given
-        final var expectedTitle = Fixture.Video.name();
+        final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.lorem(500);
-        final var expectedLaunchedAt = Fixture.Video.launchedAt();
+        final var expectedLaunchedAt = Year.of(Fixture.Videos.launchedAt());
         final var expectedDuration = 120.0;
-        final var expectedRating = Fixture.Video.rating();
+        final var expectedRating = Fixture.Videos.rating();
         final var expectedOpened = false;
         final var expectedPublished = true;
         final var expectedCategories = Set.of(CategoryID.unique());
@@ -690,11 +690,11 @@ public class VideoTest {
     @Test
     void givenAValidParams_whenCallsUpdateCategories_thenUpdateCategories() {
         // given
-        final var expectedTitle = Fixture.Video.name();
+        final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.lorem(500);
-        final var expectedLaunchedAt = Fixture.Video.launchedAt();
+        final var expectedLaunchedAt = Year.of(Fixture.Videos.launchedAt());
         final var expectedDuration = 120.0;
-        final var expectedRating = Fixture.Video.rating();
+        final var expectedRating = Fixture.Videos.rating();
         final var expectedOpened = false;
         final var expectedPublished = false;
         final var expectedCategories = Set.of(CategoryID.unique());
@@ -778,11 +778,11 @@ public class VideoTest {
     @Test
     void givenAValidParams_whenCallsUpdateGenres_thenUpdateGenres() {
         // given
-        final var expectedTitle = Fixture.Video.name();
+        final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.lorem(500);
-        final var expectedLaunchedAt = Fixture.Video.launchedAt();
+        final var expectedLaunchedAt = Year.of(Fixture.Videos.launchedAt());
         final var expectedDuration = 120.0;
-        final var expectedRating = Fixture.Video.rating();
+        final var expectedRating = Fixture.Videos.rating();
         final var expectedOpened = false;
         final var expectedPublished = false;
         final var expectedCategories = Set.of(CategoryID.unique());
@@ -866,11 +866,11 @@ public class VideoTest {
     @Test
     void givenAValidParams_whenCallsUpdateCastMembers_thenUpdateCastMembers() {
         // given
-        final var expectedTitle = Fixture.Video.name();
+        final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.lorem(500);
-        final var expectedLaunchedAt = Fixture.Video.launchedAt();
+        final var expectedLaunchedAt = Year.of(Fixture.Videos.launchedAt());
         final var expectedDuration = 120.0;
-        final var expectedRating = Fixture.Video.rating();
+        final var expectedRating = Fixture.Videos.rating();
         final var expectedOpened = false;
         final var expectedPublished = false;
         final var expectedCategories = Set.of(CategoryID.unique());
@@ -954,11 +954,11 @@ public class VideoTest {
     @Test
     void givenAValidParams_whenCallsUpdateBanner_thenUpdateBanner() {
         // given
-        final var expectedTitle = Fixture.Video.name();
+        final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.lorem(500);
-        final var expectedLaunchedAt = Fixture.Video.launchedAt();
+        final var expectedLaunchedAt = Year.of(Fixture.Videos.launchedAt());
         final var expectedDuration = 120.0;
-        final var expectedRating = Fixture.Video.rating();
+        final var expectedRating = Fixture.Videos.rating();
         final var expectedOpened = false;
         final var expectedPublished = false;
         final var expectedCategories = Set.of(CategoryID.unique());
@@ -1037,11 +1037,11 @@ public class VideoTest {
     @Test
     void givenAValidParams_whenCallsUpdateThumbnail_thenUpdateThumbnail() {
         // given
-        final var expectedTitle = Fixture.Video.name();
+        final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.lorem(500);
-        final var expectedLaunchedAt = Fixture.Video.launchedAt();
+        final var expectedLaunchedAt = Year.of(Fixture.Videos.launchedAt());
         final var expectedDuration = 120.0;
-        final var expectedRating = Fixture.Video.rating();
+        final var expectedRating = Fixture.Videos.rating();
         final var expectedOpened = false;
         final var expectedPublished = false;
         final var expectedCategories = Set.of(CategoryID.unique());
@@ -1120,11 +1120,11 @@ public class VideoTest {
     @Test
     void givenAValidParams_whenCallsUpdateThumbnailHalf_thenUpdateThumbnailHalf() {
         // given
-        final var expectedTitle = Fixture.Video.name();
+        final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.lorem(500);
-        final var expectedLaunchedAt = Fixture.Video.launchedAt();
+        final var expectedLaunchedAt = Year.of(Fixture.Videos.launchedAt());
         final var expectedDuration = 120.0;
-        final var expectedRating = Fixture.Video.rating();
+        final var expectedRating = Fixture.Videos.rating();
         final var expectedOpened = false;
         final var expectedPublished = false;
         final var expectedCategories = Set.of(CategoryID.unique());
@@ -1203,11 +1203,11 @@ public class VideoTest {
     @Test
     void givenAValidParams_whenCallsUpdateTrailer_thenUpdateTrailer() {
         // given
-        final var expectedTitle = Fixture.Video.name();
+        final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.lorem(500);
-        final var expectedLaunchedAt = Fixture.Video.launchedAt();
+        final var expectedLaunchedAt = Year.of(Fixture.Videos.launchedAt());
         final var expectedDuration = 120.0;
-        final var expectedRating = Fixture.Video.rating();
+        final var expectedRating = Fixture.Videos.rating();
         final var expectedOpened = false;
         final var expectedPublished = false;
         final var expectedCategories = Set.of(CategoryID.unique());
@@ -1289,11 +1289,11 @@ public class VideoTest {
     @Test
     void givenAValidParams_whenCallsUpdateAudioVideoMedia_thenUpdateVideo() {
         // given
-        final var expectedTitle = Fixture.Video.name();
+        final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.lorem(500);
-        final var expectedLaunchedAt = Fixture.Video.launchedAt();
+        final var expectedLaunchedAt = Year.of(Fixture.Videos.launchedAt());
         final var expectedDuration = 120.0;
-        final var expectedRating = Fixture.Video.rating();
+        final var expectedRating = Fixture.Videos.rating();
         final var expectedOpened = false;
         final var expectedPublished = false;
         final var expectedCategories = Set.of(CategoryID.unique());

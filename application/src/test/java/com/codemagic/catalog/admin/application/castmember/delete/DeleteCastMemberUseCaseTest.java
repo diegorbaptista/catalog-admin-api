@@ -1,6 +1,6 @@
 package com.codemagic.catalog.admin.application.castmember.delete;
 
-import com.codemagic.catalog.admin.application.Fixture;
+import com.codemagic.catalog.admin.Fixture;
 import com.codemagic.catalog.admin.domain.castmember.CastMember;
 import com.codemagic.catalog.admin.domain.castmember.CastMemberGateway;
 import com.codemagic.catalog.admin.domain.castmember.CastMemberID;
@@ -28,7 +28,7 @@ public class DeleteCastMemberUseCaseTest {
         // given
         final var member = CastMember.newMember(
                 Fixture.name(),
-                Fixture.CastMember.type()
+                Fixture.CastMembers.type()
         );
         final var expectedId = member.getId().getValue();
         doNothing().when(gateway).deleteById(any());

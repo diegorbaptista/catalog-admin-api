@@ -242,7 +242,7 @@ public class UpdateCastMemberUseCaseIT {
         // given
         final var expectedName = Fixture.name();
         final CastMemberType expectedType = null;
-        final var actualMember = this.gateway.create(CastMember.newMember(expectedName, Fixture.CastMember.type()));
+        final var actualMember = this.gateway.create(CastMember.newMember(expectedName, Fixture.CastMembers.type()));
 
         final var expectedId = actualMember.getId().getValue();
         final var expectedErrorMessage = "'type' should not be null";

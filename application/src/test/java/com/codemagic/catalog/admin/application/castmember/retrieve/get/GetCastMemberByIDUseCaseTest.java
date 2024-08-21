@@ -1,6 +1,6 @@
 package com.codemagic.catalog.admin.application.castmember.retrieve.get;
 
-import com.codemagic.catalog.admin.application.Fixture;
+import com.codemagic.catalog.admin.Fixture;
 import com.codemagic.catalog.admin.domain.castmember.CastMember;
 import com.codemagic.catalog.admin.domain.castmember.CastMemberGateway;
 import com.codemagic.catalog.admin.domain.castmember.CastMemberID;
@@ -30,7 +30,7 @@ public class GetCastMemberByIDUseCaseTest {
     void givenAValidCastMemberID_whenCallsGetByID_thenShouldReturnACastMember() {
         // given
         final var expectedName = Fixture.name();
-        final var expectedType = Fixture.CastMember.type();
+        final var expectedType = Fixture.CastMembers.type();
         final var member = CastMember.newMember(expectedName, expectedType);
         final var expectedId = member.getId().getValue();
 

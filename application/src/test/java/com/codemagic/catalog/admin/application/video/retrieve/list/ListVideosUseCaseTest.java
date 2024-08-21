@@ -1,6 +1,6 @@
 package com.codemagic.catalog.admin.application.video.retrieve.list;
 
-import com.codemagic.catalog.admin.application.Fixture;
+import com.codemagic.catalog.admin.Fixture;
 import com.codemagic.catalog.admin.application.UseCaseTest;
 import com.codemagic.catalog.admin.domain.pagination.Pagination;
 import com.codemagic.catalog.admin.domain.video.Video;

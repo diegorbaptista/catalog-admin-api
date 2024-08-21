@@ -37,7 +37,7 @@ public class CreateCastMemberUseCaseIT {
     void givenAValidCommand_whenCallsCreateMember_thenShouldCreateAMember() {
         // given
         final var expectedName = Fixture.name();
-        final var expectedType = Fixture.CastMember.type();
+        final var expectedType = Fixture.CastMembers.type();
         final var command = CreateCastMemberCommand.with(expectedName, expectedType);
 
         // when
@@ -62,7 +62,7 @@ public class CreateCastMemberUseCaseIT {
     void givenAInvalidNullName_whenCallsCreateMember_thenShouldReturnANotificationException() {
         // given
         final String expectedName = null;
-        final var expectedType = Fixture.CastMember.type();
+        final var expectedType = Fixture.CastMembers.type();
         final var expectedErrorMessage = "'name' should not be null";
         final var expectedErrorCount = 1;
         final var command = CreateCastMemberCommand.with(expectedName, expectedType);
@@ -82,7 +82,7 @@ public class CreateCastMemberUseCaseIT {
     void givenAInvalidEmptyName_whenCallsCreateMember_thenShouldReturnANotificationException() {
         // given
         final var expectedName = "  ";
-        final var expectedType = Fixture.CastMember.type();
+        final var expectedType = Fixture.CastMembers.type();
         final var expectedErrorMessage = "'name' should not be empty";
         final var expectedErrorCount = 1;
         final var command = CreateCastMemberCommand.with(expectedName, expectedType);
@@ -102,7 +102,7 @@ public class CreateCastMemberUseCaseIT {
     void givenAInvalidMinNameLength_whenCallsCreateMember_thenShouldReturnANotificationException() {
         // given
         final var expectedName = "A";
-        final var expectedType = Fixture.CastMember.type();
+        final var expectedType = Fixture.CastMembers.type();
         final var expectedErrorMessage = "'name' length must be between 3 and 255 characters";
         final var expectedErrorCount = 1;
         final var command = CreateCastMemberCommand.with(expectedName, expectedType);
@@ -122,7 +122,7 @@ public class CreateCastMemberUseCaseIT {
     void givenAInvalidMaxNameLength_whenCallsCreateMember_thenShouldReturnANotificationException() {
         // given
         final var expectedName = Fixture.lorem(300);
-        final var expectedType = Fixture.CastMember.type();
+        final var expectedType = Fixture.CastMembers.type();
         final var expectedErrorMessage = "'name' length must be between 3 and 255 characters";
         final var expectedErrorCount = 1;
         final var command = CreateCastMemberCommand.with(expectedName, expectedType);

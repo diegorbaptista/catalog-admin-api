@@ -24,9 +24,9 @@ public class VideoValidatorTest {
         // given
         final String expectedTitle = null;
         final var expectedDescription = Fixture.lorem(500);
-        final var expectedLaunchedAt = Fixture.Video.launchedAt();
+        final var expectedLaunchedAt = Year.of(Fixture.Videos.launchedAt());
         final var expectedDuration = 120.0;
-        final var expectedRating = Fixture.Video.rating();
+        final var expectedRating = Fixture.Videos.rating();
         final var expectedOpened = false;
         final var expectedPublished = false;
         final var expectedCategories = Set.of(CategoryID.unique());
@@ -62,9 +62,9 @@ public class VideoValidatorTest {
         // given
         final var expectedTitle = " ";
         final var expectedDescription = Fixture.lorem(500);
-        final var expectedLaunchedAt = Fixture.Video.launchedAt();
+        final var expectedLaunchedAt = Year.of(Fixture.Videos.launchedAt());
         final var expectedDuration = 120.0;
-        final var expectedRating = Fixture.Video.rating();
+        final var expectedRating = Fixture.Videos.rating();
         final var expectedOpened = false;
         final var expectedPublished = false;
         final var expectedCategories = Set.of(CategoryID.unique());
@@ -98,11 +98,11 @@ public class VideoValidatorTest {
     @Test
     void givenAInvalidTitleLength_whenCallsValidate_thenShouldReturnAError() {
         // given
-        final var expectedTitle = Fixture.Video.name().repeat(500);
+        final var expectedTitle = Fixture.Videos.title().repeat(500);
         final var expectedDescription = Fixture.lorem(500);
-        final var expectedLaunchedAt = Fixture.Video.launchedAt();
+        final var expectedLaunchedAt = Year.of(Fixture.Videos.launchedAt());
         final var expectedDuration = 120.0;
-        final var expectedRating = Fixture.Video.rating();
+        final var expectedRating = Fixture.Videos.rating();
         final var expectedOpened = false;
         final var expectedPublished = false;
         final var expectedCategories = Set.of(CategoryID.unique());
@@ -136,11 +136,11 @@ public class VideoValidatorTest {
     @Test
     void givenANullDescription_whenCallsValidate_thenShouldReturnAError() {
         // given
-        final var expectedTitle = Fixture.Video.name();
+        final var expectedTitle = Fixture.Videos.title();
         final String expectedDescription = null;
-        final var expectedLaunchedAt = Fixture.Video.launchedAt();
+        final var expectedLaunchedAt = Year.of(Fixture.Videos.launchedAt());
         final var expectedDuration = 120.0;
-        final var expectedRating = Fixture.Video.rating();
+        final var expectedRating = Fixture.Videos.rating();
         final var expectedOpened = false;
         final var expectedPublished = false;
         final var expectedCategories = Set.of(CategoryID.unique());
@@ -174,11 +174,11 @@ public class VideoValidatorTest {
     @Test
     void givenAEmptyDescription_whenCallsValidate_thenShouldReturnAError() {
         // given
-        final var expectedTitle = Fixture.Video.name();
+        final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = "  ";
-        final var expectedLaunchedAt = Fixture.Video.launchedAt();
+        final var expectedLaunchedAt = Year.of(Fixture.Videos.launchedAt());
         final var expectedDuration = 120.0;
-        final var expectedRating = Fixture.Video.rating();
+        final var expectedRating = Fixture.Videos.rating();
         final var expectedOpened = false;
         final var expectedPublished = false;
         final var expectedCategories = Set.of(CategoryID.unique());
@@ -212,11 +212,11 @@ public class VideoValidatorTest {
     @Test
     void givenAInvalidDescriptionLength_whenCallsValidate_thenShouldReturnAError() {
         // given
-        final var expectedTitle = Fixture.Video.name();
+        final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.lorem(5000);
-        final var expectedLaunchedAt = Fixture.Video.launchedAt();
+        final var expectedLaunchedAt = Year.of(Fixture.Videos.launchedAt());
         final var expectedDuration = 120.0;
-        final var expectedRating = Fixture.Video.rating();
+        final var expectedRating = Fixture.Videos.rating();
         final var expectedOpened = false;
         final var expectedPublished = false;
         final var expectedCategories = Set.of(CategoryID.unique());
@@ -250,11 +250,11 @@ public class VideoValidatorTest {
     @Test
     void givenANullLaunchedYear_whenCallsValidate_thenShouldReturnAError() {
         // given
-        final var expectedTitle = Fixture.Video.name();
+        final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.lorem(500);
         final Year expectedLaunchedAt = null;
         final var expectedDuration = 120.0;
-        final var expectedRating = Fixture.Video.rating();
+        final var expectedRating = Fixture.Videos.rating();
         final var expectedOpened = false;
         final var expectedPublished = false;
         final var expectedCategories = Set.of(CategoryID.unique());
@@ -288,9 +288,9 @@ public class VideoValidatorTest {
     @Test
     void givenANullRating_whenCallsValidate_thenShouldReturnAError() {
         // given
-        final var expectedTitle = Fixture.Video.name();
+        final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.lorem(500);
-        final var expectedLaunchedAt = Fixture.Video.launchedAt();
+        final var expectedLaunchedAt = Year.of(Fixture.Videos.launchedAt());
         final var expectedDuration = 120.0;
         final Rating expectedRating = null;
         final var expectedOpened = false;
@@ -326,11 +326,11 @@ public class VideoValidatorTest {
     @Test
     void givenAInvalidNegativeDuration_whenCallsValidate_thenShouldReturnAError() {
         // given
-        final var expectedTitle = Fixture.Video.name();
+        final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.lorem(500);
-        final var expectedLaunchedAt = Fixture.Video.launchedAt();
+        final var expectedLaunchedAt = Year.of(Fixture.Videos.launchedAt());
         final var expectedDuration = -120.0;
-        final var expectedRating = Fixture.Video.rating();
+        final var expectedRating = Fixture.Videos.rating();
         final var expectedOpened = false;
         final var expectedPublished = false;
         final var expectedCategories = Set.of(CategoryID.unique());
@@ -365,11 +365,11 @@ public class VideoValidatorTest {
     @Test
     void givenAInvalidZeroDuration_whenCallsValidate_thenShouldReturnAError() {
         // given
-        final var expectedTitle = Fixture.Video.name();
+        final var expectedTitle = Fixture.Videos.title();
         final var expectedDescription = Fixture.lorem(500);
-        final var expectedLaunchedAt = Fixture.Video.launchedAt();
+        final var expectedLaunchedAt = Year.of(Fixture.Videos.launchedAt());
         final var expectedDuration = 0;
-        final var expectedRating = Fixture.Video.rating();
+        final var expectedRating = Fixture.Videos.rating();
         final var expectedOpened = false;
         final var expectedPublished = false;
         final var expectedCategories = Set.of(CategoryID.unique());
