@@ -18,3 +18,18 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+configurations {
+    testClasses {
+        extendsFrom(testImplementation)
+    }
+}
+
+tasks.register('testJar', Jar) {
+    archiveClassifier.set("test")
+    from sourceSets.test.output
+}
+
+artifacts {
+    testClasses(testJar)
+}
