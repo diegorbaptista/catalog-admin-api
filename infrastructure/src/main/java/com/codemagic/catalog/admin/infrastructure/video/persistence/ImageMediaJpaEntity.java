@@ -16,7 +16,7 @@ public class ImageMediaJpaEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "location", nullable = false)
+    @Column(name = "local_path", nullable = false)
     private String location;
 
     public ImageMediaJpaEntity() {}

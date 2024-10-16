@@ -10,6 +10,8 @@ import com.codemagic.catalog.admin.domain.video.Resource;
 import com.codemagic.catalog.admin.domain.video.Video;
 import net.datafaker.Faker;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Year;
 import java.util.Collections;
 import java.util.HashSet;
@@ -135,7 +137,9 @@ public final class Fixture {
         }
 
         public static double duration() {
-            return FAKER.random().nextDouble(80, 150);
+            return BigDecimal.valueOf(FAKER.random().nextDouble(80, 150))
+                    .setScale(2, RoundingMode.HALF_DOWN)
+                    .doubleValue();
         }
 
         public static Rating rating() {

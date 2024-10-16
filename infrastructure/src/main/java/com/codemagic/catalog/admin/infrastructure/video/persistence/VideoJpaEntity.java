@@ -32,7 +32,6 @@ public class VideoJpaEntity {
     private int launchedAt;
 
     @Column(name = "rating", nullable = false)
-    @Enumerated(EnumType.STRING)
     private Rating rating;
 
     @Column(name = "duration", precision = 2)
@@ -305,6 +304,12 @@ public class VideoJpaEntity {
         return categories;
     }
 
+    public Set<CategoryID> getCategoriesID() {
+        return this.categories.stream()
+                .map(it -> CategoryID.from(it.getId().getCategoryId()))
+                .collect(Collectors.toSet());
+    }
+
     public void setCategories(Set<VideoCategoryJpaEntity> categories) {
         this.categories = categories;
     }
@@ -313,12 +318,24 @@ public class VideoJpaEntity {
         return genres;
     }
 
+    public Set<GenreID> getGenresID() {
+        return this.getGenres().stream()
+                .map(it -> GenreID.from(it.getId().getGenreId()))
+                .collect(Collectors.toSet());
+    }
+
     public void setGenres(Set<VideoGenreJpaEntity> genres) {
         this.genres = genres;
     }
 
     public Set<VideoCastMemberJpaEntity> getMembers() {
         return members;
+    }
+
+    public Set<CastMemberID> getMembersID() {
+        return this.getMembers().stream()
+                .map(it -> CastMemberID.from(it.getId().getCastMemberId()))
+                .collect(Collectors.toSet());
     }
 
     public void setMembers(Set<VideoCastMemberJpaEntity> members) {

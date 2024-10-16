@@ -1,22 +1,27 @@
 package com.codemagic.catalog.admin.domain.video;
 
 import com.codemagic.catalog.admin.domain.ValueObject;
+import com.codemagic.catalog.admin.domain.util.IdentifierUtil;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public final class AudioMediaVideo extends ValueObject {
 
+    private final String id;
     private final String checksum;
     private final String name;
     private final String rawLocation;
     private final String encodedLocation;
     private final MediaStatus status;
 
-    private AudioMediaVideo(final String checksum,
+    private AudioMediaVideo(final String id,
+                            final String checksum,
                             final String name,
                             final String rawLocation,
                             final String encodedLocation,
                             final MediaStatus status) {
+        this.id = Objects.requireNonNull(id);
         this.checksum = Objects.requireNonNull(checksum);
         this.name = Objects.requireNonNull(name);
         this.rawLocation = Objects.requireNonNull(rawLocation);
@@ -24,12 +29,31 @@ public final class AudioMediaVideo extends ValueObject {
         this.status = Objects.requireNonNull(status);
     }
 
+    public static AudioMediaVideo with(final String id,
+                                       final String checksum,
+                                       final String name,
+                                       final String rawLocation,
+                                       final String encodedLocation,
+                                       final MediaStatus status) {
+        return new AudioMediaVideo(IdentifierUtil.uuid(), checksum, name, rawLocation, encodedLocation, status);
+    }
+
     public static AudioMediaVideo with(final String checksum,
                                        final String name,
                                        final String rawLocation,
                                        final String encodedLocation,
                                        final MediaStatus status) {
-        return new AudioMediaVideo(checksum, name, rawLocation, encodedLocation, status);
+        return AudioMediaVideo.with(IdentifierUtil.uuid(), checksum, name, rawLocation, encodedLocation, status);
+    }
+
+    public static AudioMediaVideo with(final String checksum,
+                                       final String name,
+                                       final String rawLocation) {
+        return AudioMediaVideo.with(checksum, name, rawLocation, "", MediaStatus.PENDING);
+    }
+
+    public String id() {
+        return id;
     }
 
     public String checksum() {
