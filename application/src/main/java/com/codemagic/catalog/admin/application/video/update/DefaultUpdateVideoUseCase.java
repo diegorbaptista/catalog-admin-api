@@ -24,6 +24,8 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import static com.codemagic.catalog.admin.domain.video.VideoResourceType.*;
+
 public class DefaultUpdateVideoUseCase extends UpdateVideoUseCase {
 
     private final VideoGateway videoGateway;
@@ -85,23 +87,23 @@ public class DefaultUpdateVideoUseCase extends UpdateVideoUseCase {
         final var id = video.getId();
         try {
             final var trailerMedia = command.getTrailer()
-                    .map(it -> this.resourceGateway.storeAudioVideo(id, it))
+                    .map(it -> this.resourceGateway.storeAudioVideo(id, VideoResource.with(it, TRAILER)))
                     .orElse(null);
 
             final var videoMedia = command.getVideo()
-                    .map(it -> this.resourceGateway.storeAudioVideo(id, it))
+                    .map(it -> this.resourceGateway.storeAudioVideo(id, VideoResource.with(it, VIDEO)))
                     .orElse(null);
 
             final var bannerMedia = command.getBanner()
-                    .map(it -> this.resourceGateway.storeImage(id, it))
+                    .map(it -> this.resourceGateway.storeImage(id, VideoResource.with(it, BANNER)))
                     .orElse(null);
 
             final var thumbnailMedia = command.getThumbnail()
-                    .map(it -> this.resourceGateway.storeImage(id, it))
+                    .map(it -> this.resourceGateway.storeImage(id, VideoResource.with(it, THUMBNAIL)))
                     .orElse(null);
 
             final var thumbnailHalfMedia = command.getThumbnailHalf()
-                    .map(it -> this.resourceGateway.storeImage(id, it))
+                    .map(it -> this.resourceGateway.storeImage(id, VideoResource.with(it, THUMBNAIL_HALF)))
                     .orElse(null);
 
             video.setVideo(videoMedia);

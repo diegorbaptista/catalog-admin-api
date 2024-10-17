@@ -1,6 +1,6 @@
 package com.codemagic.catalog.admin.infrastructure.services.impl;
 
-import com.codemagic.catalog.admin.domain.video.Resource;
+import com.codemagic.catalog.admin.domain.resource.Resource;
 import com.codemagic.catalog.admin.infrastructure.services.StorageService;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
@@ -33,7 +33,11 @@ public class GoogleStorageService implements StorageService {
     @Override
     public Optional<Resource> get(final String name) {
         return Optional.ofNullable(this.storage.get(this.bucket, name))
-                .map(blob -> Resource.with(blob.getContent(), blob.getContentType(), blob.getName(), null));
+                .map(blob -> Resource.with(
+                        blob.getCrc32cToHexString(),
+                        blob.getContent(),
+                        blob.getContentType(),
+                        blob.getName()));
     }
 
     @Override
@@ -50,7 +54,7 @@ public class GoogleStorageService implements StorageService {
     public void store(String name, Resource resource) {
         this.storage.create(BlobInfo.newBuilder(this.bucket, name)
                 .setContentType(resource.contentType())
-                .setCrc32cFromHexString("")
+                .setCrc32cFromHexString(resource.checksum())
                 .build(), resource.content());
     }
 }

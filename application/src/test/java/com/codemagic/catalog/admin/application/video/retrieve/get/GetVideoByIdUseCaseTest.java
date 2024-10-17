@@ -6,6 +6,7 @@ import com.codemagic.catalog.admin.domain.castmember.CastMember;
 import com.codemagic.catalog.admin.domain.category.Category;
 import com.codemagic.catalog.admin.domain.exceptions.NotFoundException;
 import com.codemagic.catalog.admin.domain.genre.Genre;
+import com.codemagic.catalog.admin.domain.resource.Resource;
 import com.codemagic.catalog.admin.domain.video.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -43,11 +44,11 @@ public class GetVideoByIdUseCaseTest extends UseCaseTest {
         final var expectedCategories = toSet(Fixture.Categories.categories(), Category::getId);
         final var expectedGenres = toSet(Fixture.Genres.genres(), Genre::getId);
         final var expectedMembers = toSet(Fixture.CastMembers.members(5), CastMember::getId);
-        final var expectedTrailer = audioVideo(Resource.Type.TRAILER);
-        final var expectedVideo = audioVideo(Resource.Type.VIDEO);
-        final var expectedBanner = image(Resource.Type.BANNER);
-        final var expectedThumbnail = image(Resource.Type.THUMBNAIL);
-        final var expectedThumbnailHalf = image(Resource.Type.THUMBNAIL_HALF);
+        final var expectedTrailer = audioVideo(VideoResourceType.TRAILER);
+        final var expectedVideo = audioVideo(VideoResourceType.VIDEO);
+        final var expectedBanner = image(VideoResourceType.BANNER);
+        final var expectedThumbnail = image(VideoResourceType.THUMBNAIL);
+        final var expectedThumbnailHalf = image(VideoResourceType.THUMBNAIL_HALF);
 
         final var video = Video.newVideo(
                 expectedTitle,
@@ -118,7 +119,7 @@ public class GetVideoByIdUseCaseTest extends UseCaseTest {
         assertEquals(expectedErrorMessage, actualException.getMessage());
     }
 
-    private ImageMedia image(final Resource.Type type) {
+    private ImageMedia image(final VideoResourceType type) {
         final var checksum = UUID.randomUUID().toString();
         return ImageMedia.with(
                 checksum,
@@ -126,7 +127,7 @@ public class GetVideoByIdUseCaseTest extends UseCaseTest {
                 "/images/".concat(type.name().toLowerCase()));
     }
 
-    private AudioMediaVideo audioVideo(final Resource.Type type) {
+    private AudioMediaVideo audioVideo(final VideoResourceType type) {
         final var checksum = UUID.randomUUID().toString();
         return AudioMediaVideo.with(
                 checksum,

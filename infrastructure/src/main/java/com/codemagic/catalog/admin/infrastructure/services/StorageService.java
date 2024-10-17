@@ -1,6 +1,6 @@
 package com.codemagic.catalog.admin.infrastructure.services;
 
-import com.codemagic.catalog.admin.domain.video.Resource;
+import com.codemagic.catalog.admin.domain.resource.Resource;
 
 import java.util.List;
 import java.util.Optional;

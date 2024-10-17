@@ -1,6 +1,6 @@
 package com.codemagic.catalog.admin.application.video.update;
 
-import com.codemagic.catalog.admin.domain.video.Resource;
+import com.codemagic.catalog.admin.domain.resource.Resource;
 
 import java.util.Optional;
 import java.util.Set;

@@ -4,10 +4,9 @@ import com.codemagic.catalog.admin.domain.castmember.CastMember;
 import com.codemagic.catalog.admin.domain.castmember.CastMemberType;
 import com.codemagic.catalog.admin.domain.category.Category;
 import com.codemagic.catalog.admin.domain.genre.Genre;
-import com.codemagic.catalog.admin.domain.video.MediaStatus;
-import com.codemagic.catalog.admin.domain.video.Rating;
-import com.codemagic.catalog.admin.domain.video.Resource;
-import com.codemagic.catalog.admin.domain.video.Video;
+import com.codemagic.catalog.admin.domain.util.IdentifierUtil;
+import com.codemagic.catalog.admin.domain.video.*;
+import com.codemagic.catalog.admin.domain.resource.Resource;
 import net.datafaker.Faker;
 
 import java.math.BigDecimal;
@@ -154,13 +153,12 @@ public final class Fixture {
             return FAKER.random().nextBoolean();
         }
 
-        public static Resource resource(final Resource.Type type) {
+        public static Resource resource(final VideoResourceType type) {
             final var contentType = Stream.of(type)
-                    .anyMatch(t -> t.equals(Resource.Type.TRAILER) || t.equals(Resource.Type.VIDEO))
+                    .anyMatch(t -> t.equals(VideoResourceType.TRAILER) || t.equals(VideoResourceType.VIDEO))
                     ? "video/mp4" : "image/jpeg";
             final var content = FAKER.avatar().image().getBytes();
-
-            return Resource.with(content, contentType, type.name(), type);
+            return Resource.with(IdentifierUtil.uuid(), content, contentType, type.name());
         }
     }
 

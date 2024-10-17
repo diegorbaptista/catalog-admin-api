@@ -13,6 +13,7 @@ import com.codemagic.catalog.admin.domain.exceptions.NotificationException;
 import com.codemagic.catalog.admin.domain.genre.Genre;
 import com.codemagic.catalog.admin.domain.genre.GenreGateway;
 import com.codemagic.catalog.admin.domain.genre.GenreID;
+import com.codemagic.catalog.admin.domain.resource.Resource;
 import com.codemagic.catalog.admin.domain.video.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -61,11 +62,11 @@ public class CreateVideoUseCaseTest extends UseCaseTest {
         final var expectedCategories = toSet(Fixture.Categories.categories(), Category::getId);
         final var expectedGenres = toSet(Fixture.Genres.genres(), Genre::getId);
         final var expectedMembers = toSet(Fixture.CastMembers.members(5), CastMember::getId);
-        final var expectedTrailer = Fixture.Videos.resource(Resource.Type.TRAILER);
-        final var expectedVideo = Fixture.Videos.resource(Resource.Type.VIDEO);
-        final var expectedBanner = Fixture.Videos.resource(Resource.Type.BANNER);
-        final var expectedThumbnail = Fixture.Videos.resource(Resource.Type.THUMBNAIL);
-        final var expectedThumbnailHalf = Fixture.Videos.resource(Resource.Type.THUMBNAIL_HALF);
+        final var expectedTrailer = Fixture.Videos.resource(VideoResourceType.TRAILER);
+        final var expectedVideo = Fixture.Videos.resource(VideoResourceType.VIDEO);
+        final var expectedBanner = Fixture.Videos.resource(VideoResourceType.BANNER);
+        final var expectedThumbnail = Fixture.Videos.resource(VideoResourceType.THUMBNAIL);
+        final var expectedThumbnailHalf = Fixture.Videos.resource(VideoResourceType.THUMBNAIL_HALF);
 
         // when
         when(videoGateway.create(any())).thenAnswer(returnsFirstArg());
@@ -133,11 +134,11 @@ public class CreateVideoUseCaseTest extends UseCaseTest {
         final var expectedCategories = Set.<CategoryID>of();
         final var expectedGenres = toSet(Fixture.Genres.genres(), Genre::getId);
         final var expectedMembers = toSet(Fixture.CastMembers.members(5), CastMember::getId);
-        final var expectedTrailer = Fixture.Videos.resource(Resource.Type.TRAILER);
-        final var expectedVideo = Fixture.Videos.resource(Resource.Type.VIDEO);
-        final var expectedBanner = Fixture.Videos.resource(Resource.Type.BANNER);
-        final var expectedThumbnail = Fixture.Videos.resource(Resource.Type.THUMBNAIL);
-        final var expectedThumbnailHalf = Fixture.Videos.resource(Resource.Type.THUMBNAIL_HALF);
+        final var expectedTrailer = Fixture.Videos.resource(VideoResourceType.TRAILER);
+        final var expectedVideo = Fixture.Videos.resource(VideoResourceType.VIDEO);
+        final var expectedBanner = Fixture.Videos.resource(VideoResourceType.BANNER);
+        final var expectedThumbnail = Fixture.Videos.resource(VideoResourceType.THUMBNAIL);
+        final var expectedThumbnailHalf = Fixture.Videos.resource(VideoResourceType.THUMBNAIL_HALF);
 
         // when
         when(videoGateway.create(any())).thenAnswer(returnsFirstArg());
@@ -203,11 +204,11 @@ public class CreateVideoUseCaseTest extends UseCaseTest {
         final var expectedCategories = toSet(Fixture.Categories.categories(), Category::getId);
         final var expectedGenres = Set.<GenreID>of();
         final var expectedMembers = toSet(Fixture.CastMembers.members(5), CastMember::getId);
-        final var expectedTrailer = Fixture.Videos.resource(Resource.Type.TRAILER);
-        final var expectedVideo = Fixture.Videos.resource(Resource.Type.VIDEO);
-        final var expectedBanner = Fixture.Videos.resource(Resource.Type.BANNER);
-        final var expectedThumbnail = Fixture.Videos.resource(Resource.Type.THUMBNAIL);
-        final var expectedThumbnailHalf = Fixture.Videos.resource(Resource.Type.THUMBNAIL_HALF);
+        final var expectedTrailer = Fixture.Videos.resource(VideoResourceType.TRAILER);
+        final var expectedVideo = Fixture.Videos.resource(VideoResourceType.VIDEO);
+        final var expectedBanner = Fixture.Videos.resource(VideoResourceType.BANNER);
+        final var expectedThumbnail = Fixture.Videos.resource(VideoResourceType.THUMBNAIL);
+        final var expectedThumbnailHalf = Fixture.Videos.resource(VideoResourceType.THUMBNAIL_HALF);
 
         // when
         when(videoGateway.create(any())).thenAnswer(returnsFirstArg());
@@ -274,11 +275,11 @@ public class CreateVideoUseCaseTest extends UseCaseTest {
         final var expectedCategories = toSet(Fixture.Categories.categories(), Category::getId);
         final var expectedGenres = toSet(Fixture.Genres.genres(), Genre::getId);
         final var expectedMembers = Set.<CastMemberID>of();
-        final var expectedTrailer = Fixture.Videos.resource(Resource.Type.TRAILER);
-        final var expectedVideo = Fixture.Videos.resource(Resource.Type.VIDEO);
-        final var expectedBanner = Fixture.Videos.resource(Resource.Type.BANNER);
-        final var expectedThumbnail = Fixture.Videos.resource(Resource.Type.THUMBNAIL);
-        final var expectedThumbnailHalf = Fixture.Videos.resource(Resource.Type.THUMBNAIL_HALF);
+        final var expectedTrailer = Fixture.Videos.resource(VideoResourceType.TRAILER);
+        final var expectedVideo = Fixture.Videos.resource(VideoResourceType.VIDEO);
+        final var expectedBanner = Fixture.Videos.resource(VideoResourceType.BANNER);
+        final var expectedThumbnail = Fixture.Videos.resource(VideoResourceType.THUMBNAIL);
+        final var expectedThumbnailHalf = Fixture.Videos.resource(VideoResourceType.THUMBNAIL_HALF);
 
         // when
         when(videoGateway.create(any())).thenAnswer(returnsFirstArg());
@@ -1171,15 +1172,19 @@ public class CreateVideoUseCaseTest extends UseCaseTest {
 
     private void mockImageMedia() {
         when(this.mediaResourceGateway.storeImage(any(), any())).thenAnswer(answer -> {
-            final var resource = answer.getArgument(1, Resource.class);
-            return ImageMedia.with(UUID.randomUUID().toString(), resource.name(), "/images");
+            final var videoResource = answer.getArgument(1, VideoResource.class);
+            final var name = videoResource.resource().name();
+            final var checksum = videoResource.resource().checksum();
+            return ImageMedia.with(checksum, name, "/images");
         });
     }
 
     private void mockAudioVideoMedia() {
         when(this.mediaResourceGateway.storeAudioVideo(any(), any())).thenAnswer(answer -> {
-            final var resource = answer.getArgument(1, Resource.class);
-            return AudioMediaVideo.with(UUID.randomUUID().toString(), resource.name(), "/videos", "", MediaStatus.PENDING);
+            final var videoResource = answer.getArgument(1, VideoResource.class);
+            final var name = videoResource.resource().name();
+            final var checksum = videoResource.resource().checksum();
+            return AudioMediaVideo.with(checksum, name, "/videos", "", MediaStatus.PENDING);
         });
     }
 }

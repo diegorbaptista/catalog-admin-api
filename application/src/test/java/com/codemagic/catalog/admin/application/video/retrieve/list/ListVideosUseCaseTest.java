@@ -5,6 +5,7 @@ import com.codemagic.catalog.admin.application.UseCaseTest;
 import com.codemagic.catalog.admin.domain.pagination.Pagination;
 import com.codemagic.catalog.admin.domain.video.Video;
 import com.codemagic.catalog.admin.domain.video.VideoGateway;
+import com.codemagic.catalog.admin.domain.video.VideoPreview;
 import com.codemagic.catalog.admin.domain.video.VideoSearchQuery;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,7 +33,7 @@ public class ListVideosUseCaseTest extends UseCaseTest {
     @Test
     void givenAValidQuery_whenCallsListVideos_thenShouldReturnPaginatedListOfVideos() {
         // given
-        final var videos = List.of(Fixture.Videos.video());
+        final var videos = List.of(VideoPreview.from(Fixture.Videos.video()));
         final var expectedPage = 0;
         final var expectedPerPage = 10;
         final var expectedCount = 1;
@@ -41,8 +43,10 @@ public class ListVideosUseCaseTest extends UseCaseTest {
         final var expectedDirection = "asc";
         final var expectedItems = videos.stream().map(VideoListOutput::from).toList();
 
-        final var expectedQuery = new VideoSearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
+        final var expectedQuery = new VideoSearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection,
+                Collections.emptySet(), Collections.emptySet(), Collections.emptySet());
         final var expectedPagination = new Pagination<>(expectedPage, expectedPerPage, expectedCount, videos);
+
         when(videoGateway.findAll(any())).thenReturn(expectedPagination);
 
         // when
@@ -63,7 +67,7 @@ public class ListVideosUseCaseTest extends UseCaseTest {
     @Test
     void givenAValidQuery_whenCallsListVideosAndDataSourceIsEmpty_thenShouldReturnPaginated() {
         // given
-        final var videos = List.<Video>of();
+        final var videos = List.<VideoPreview>of();
         final var expectedPage = 0;
         final var expectedPerPage = 10;
         final var expectedCount = 0;
@@ -73,7 +77,8 @@ public class ListVideosUseCaseTest extends UseCaseTest {
         final var expectedDirection = "asc";
         final var expectedItems = List.<VideoListOutput>of();
 
-        final var expectedQuery = new VideoSearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
+        final var expectedQuery = new VideoSearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection,
+                Collections.emptySet(), Collections.emptySet(), Collections.emptySet());
         final var expectedPagination = new Pagination<>(expectedPage, expectedPerPage, expectedCount, videos);
         when(videoGateway.findAll(any())).thenReturn(expectedPagination);
 
@@ -102,7 +107,8 @@ public class ListVideosUseCaseTest extends UseCaseTest {
         final var expectedDirection = "asc";
         final var expectedErrorMessage = "Gateway error";
 
-        final var expectedQuery = new VideoSearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
+        final var expectedQuery = new VideoSearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection,
+                Collections.emptySet(), Collections.emptySet(), Collections.emptySet());
 
         doThrow(new IllegalStateException("Gateway error")).when(videoGateway).findAll(any());
 
