@@ -13,6 +13,14 @@ public class LocalStorageService implements StorageService {
 
     private final Map<String, Resource> storage;
 
+    public void clear() {
+        this.storage.clear();
+    }
+
+    public Map<String, Resource> storage() {
+        return this.storage;
+    }
+
     public LocalStorageService() {
         this.storage = new ConcurrentHashMap<>();
     }
