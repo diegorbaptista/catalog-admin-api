@@ -1,3 +1,22 @@
+google:
+  cloud:
+    credentials: ${GOOGLE_CLOUD_CREDENTIALS}
+    project-id: ${GOOGLE_CLOUD_PROJECT_ID}
+    storage:
+      catalog-media:
+        bucket: codemagic-catalog-media
+        connect-timeout: 1000
+        read-timeout: 2000
+        retry-delay: 100
+        retry-max-attempts: 5
+        retry-max-delay: 100
+        retry-multiplier: 2.0
+
+logging:
+  level:
+    ROOT: info
+    com.codemagic.catalog.admin: debug
+
 server:
   port: 8080
   compression:
