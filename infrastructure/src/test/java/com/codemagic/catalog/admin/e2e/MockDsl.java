@@ -1,7 +1,11 @@
 package com.codemagic.catalog.admin.e2e;
 
+import com.codemagic.catalog.admin.domain.castmember.CastMemberID;
+import com.codemagic.catalog.admin.domain.castmember.CastMemberType;
 import com.codemagic.catalog.admin.domain.category.CategoryID;
 import com.codemagic.catalog.admin.domain.genre.GenreID;
+import com.codemagic.catalog.admin.infrastructure.castmember.models.CreateCastMemberRequest;
+import com.codemagic.catalog.admin.infrastructure.castmember.models.UpdateCastMemberRequest;
 import com.codemagic.catalog.admin.infrastructure.category.models.CategoryResponse;
 import com.codemagic.catalog.admin.infrastructure.category.models.CreateCategoryRequest;
 import com.codemagic.catalog.admin.infrastructure.category.models.UpdateCategoryRequest;
@@ -19,14 +23,18 @@ import java.util.Objects;
 import java.util.function.Function;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.web.servlet.function.RequestPredicates.contentType;
 
 public interface MockDsl {
 
     MockMvc mvc();
+
+    default CategoryID givenACategory(final String categoryName, final String categoryDescription) throws Exception {
+        final var requestBody = new CreateCategoryRequest(categoryName, categoryDescription);
+        final var actualId = given("/categories", requestBody);
+        return CategoryID.from(actualId);
+    }
 
     default GenreID givenAGenre(final String name, final List<CategoryID> categories) throws Exception {
         final var requestBody = new CreateGenreRequest(name, mapTo(categories, CategoryID::getValue));
@@ -34,10 +42,10 @@ public interface MockDsl {
         return GenreID.from(actualId);
     }
 
-    default CategoryID givenACategory(final String categoryName, final String categoryDescription) throws Exception {
-        final var requestBody = new CreateCategoryRequest(categoryName, categoryDescription);
-        final var actualId = given("/categories", requestBody);
-        return CategoryID.from(actualId);
+    default CastMemberID givenACastMember(final String name, CastMemberType type) throws Exception {
+        final var requestBody = new CreateCastMemberRequest(name, type);
+        final var actualId = given("/cast-members", requestBody);
+        return CastMemberID.from(actualId);
     }
 
     default ResultActions updateACategory(final String id, final UpdateCategoryRequest requestBody) throws Exception {
@@ -46,6 +54,10 @@ public interface MockDsl {
 
     default ResultActions updateAGenre(final String id, final UpdateGenreRequest requestBody) throws Exception {
         return this.update("/genres", id, requestBody);
+    }
+
+    default ResultActions updateACastMember(final String id, UpdateCastMemberRequest requestBody) throws Exception {
+        return this.update("/cast-members", id, requestBody);
     }
 
     default GenreResponse retrieveAGenre(final String id) throws Exception {

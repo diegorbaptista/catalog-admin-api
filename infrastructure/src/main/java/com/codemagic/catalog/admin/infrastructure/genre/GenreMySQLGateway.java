@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -69,6 +70,11 @@ public class GenreMySQLGateway implements GenreGateway {
     @Override
     public void deleteById(GenreID id) {
         this.repository.deleteById(id.getValue());
+    }
+
+    @Override
+    public List<GenreID> existsByIds(Iterable<GenreID> genres) {
+        return List.of();
     }
 
     private Genre save(final Genre genre) {

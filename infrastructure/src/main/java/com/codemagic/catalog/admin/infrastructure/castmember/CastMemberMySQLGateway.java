@@ -2,6 +2,7 @@ package com.codemagic.catalog.admin.infrastructure.castmember;
 
 import com.codemagic.catalog.admin.domain.castmember.CastMember;
 import com.codemagic.catalog.admin.domain.castmember.CastMemberGateway;
+import com.codemagic.catalog.admin.domain.castmember.CastMemberID;
 import com.codemagic.catalog.admin.domain.pagination.Pagination;
 import com.codemagic.catalog.admin.domain.pagination.SearchQuery;
 import com.codemagic.catalog.admin.infrastructure.castmember.persistence.CastMemberJpaEntity;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -70,6 +72,11 @@ public class CastMemberMySQLGateway implements CastMemberGateway {
     @Override
     public void deleteById(final String id) {
         this.repository.deleteById(id);
+    }
+
+    @Override
+    public List<CastMemberID> existsByIds(Iterable<CastMemberID> members) {
+        return List.of();
     }
 
     private CastMember save(final CastMember member) {
