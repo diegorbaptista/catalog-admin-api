@@ -20,4 +20,7 @@ public class NotFoundException extends DomainException {
         )));
     }
 
+    public static NotFoundException with(final Error error) {
+        return new NotFoundException(List.of(error));
+    }
 }

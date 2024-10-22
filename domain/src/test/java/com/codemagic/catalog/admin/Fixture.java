@@ -153,6 +153,10 @@ public final class Fixture {
             return FAKER.random().nextBoolean();
         }
 
+        public static VideoResourceType resourceType() {
+            return FAKER.options().option(VideoResourceType.class);
+        }
+
         public static Resource resource(final VideoResourceType type) {
             final var contentType = Stream.of(type)
                     .anyMatch(t -> t.equals(VideoResourceType.TRAILER) || t.equals(VideoResourceType.VIDEO))
