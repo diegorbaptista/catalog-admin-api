@@ -12,6 +12,11 @@ google:
         retry-max-delay: 100
         retry-multiplier: 2.0
 
+storage:
+  catalog-media:
+    filename-pattern: type-{type}
+    location-pattern: videoId-{videoId}
+
 logging:
   level:
     ROOT: info

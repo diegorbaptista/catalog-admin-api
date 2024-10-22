@@ -12,7 +12,7 @@ public interface StorageService {
 
     Optional<Resource> get(final String name);
 
-    List<String> list(final String prefix);
+    Set<String> list(final String prefix);
 
     void store(final String name, final Resource resource);
 
