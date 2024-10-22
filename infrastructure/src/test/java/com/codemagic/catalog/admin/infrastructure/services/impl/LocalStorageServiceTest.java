@@ -92,7 +92,7 @@ public class LocalStorageServiceTest {
     }
 
     @Test
-    void givenAnValidNames_whenCallsDelteAll_thenShouldDeleteAllNames() {
+    void givenAnValidNames_whenCallsDeleteAll_thenShouldDeleteAllNames() {
         final var expectedVideoNames = Set.of(
                 "video-".concat(IdentifierUtil.uuid()),
                 "video-".concat(IdentifierUtil.uuid()),
