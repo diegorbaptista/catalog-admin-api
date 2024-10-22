@@ -1,4 +1,4 @@
-package com.codemagic.catalog.admin.infrastructure.configuration.properties;
+package com.codemagic.catalog.admin.infrastructure.configuration.properties.google;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

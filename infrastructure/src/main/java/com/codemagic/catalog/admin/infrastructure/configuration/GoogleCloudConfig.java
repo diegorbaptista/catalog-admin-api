@@ -1,7 +1,7 @@
 package com.codemagic.catalog.admin.infrastructure.configuration;
 
-import com.codemagic.catalog.admin.infrastructure.configuration.properties.GoogleCloudProperties;
-import com.codemagic.catalog.admin.infrastructure.configuration.properties.GoogleStorageProperties;
+import com.codemagic.catalog.admin.infrastructure.configuration.properties.google.GoogleCloudProperties;
+import com.codemagic.catalog.admin.infrastructure.configuration.properties.google.GoogleStorageProperties;
 import com.google.api.gax.retrying.RetrySettings;
 import com.google.auth.Credentials;
 import com.google.auth.oauth2.GoogleCredentials;
