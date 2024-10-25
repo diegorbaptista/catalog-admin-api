@@ -9,6 +9,7 @@ import com.google.cloud.storage.Storage;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 public class GoogleStorageService implements StorageService {
@@ -41,13 +42,13 @@ public class GoogleStorageService implements StorageService {
     }
 
     @Override
-    public List<String> list(final String prefix) {
+    public Set<String> list(final String prefix) {
         final var page = this.storage.list(this.bucket, Storage.BlobListOption.prefix(prefix));
 
         return StreamSupport.stream(page.iterateAll().spliterator(), false)
                 .map(BlobInfo::getBlobId)
                 .map(BlobId::getName)
-                .toList();
+                .collect(Collectors.toSet());
     }
 
     @Override

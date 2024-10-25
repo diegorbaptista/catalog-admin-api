@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 public class LocalStorageService implements StorageService {
 
@@ -36,10 +37,10 @@ public class LocalStorageService implements StorageService {
     }
 
     @Override
-    public List<String> list(String prefix) {
+    public Set<String> list(String prefix) {
         return storage.keySet().stream()
                 .filter(name -> name.startsWith(prefix))
-                .toList();
+                .collect(Collectors.toSet());
     }
 
     @Override
