@@ -164,6 +164,26 @@ public final class Fixture {
             final var content = FAKER.avatar().image().getBytes();
             return Resource.with(IdentifierUtil.uuid(), content, contentType, type.name());
         }
+
+        public static com.codemagic.catalog.admin.domain.video.AudioMediaVideo
+            audioMedia(final VideoResourceType type) {
+            final var resource = resource(type);
+            return com.codemagic.catalog.admin.domain.video.AudioMediaVideo.with(
+                    resource.checksum(),
+                    resource.name(),
+                    ""
+            );
+        }
+
+        public static com.codemagic.catalog.admin.domain.video.ImageMedia image(final VideoResourceType type) {
+            final var resource = resource(type);
+            return com.codemagic.catalog.admin.domain.video.ImageMedia.with(
+                    resource.checksum(),
+                    resource.name(),
+                    ""
+            );
+        }
+
     }
 
     public static class ImageMedia {
