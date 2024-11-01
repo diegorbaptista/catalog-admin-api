@@ -184,8 +184,7 @@ public class Video extends AggregateRoot<VideoID> {
             final boolean wasPublished,
             final Set<CategoryID> categories,
             final Set<GenreID> genres,
-            final Set<CastMemberID> members)
-    {
+            final Set<CastMemberID> members) {
         this.title = title;
         this.description = description;
         this.launchedAt = launchedAt;
@@ -315,4 +314,19 @@ public class Video extends AggregateRoot<VideoID> {
         return castMembers != null ? Collections.unmodifiableSet(castMembers) : Collections.emptySet();
     }
 
+    public void processing(final VideoResourceType type) {
+        if (type == VideoResourceType.VIDEO) {
+            this.getVideo().ifPresent(media -> setVideo(media.processing()));
+        } else if (type == VideoResourceType.TRAILER) {
+            this.getTrailer().ifPresent(media -> setTrailer(media.processing()));
+        }
+    }
+
+    public void completed(final VideoResourceType type, final String encodedPath) {
+        if (type == VideoResourceType.VIDEO) {
+            this.getVideo().ifPresent(media -> setVideo(media.completed(encodedPath)));
+        } else if (type == VideoResourceType.TRAILER) {
+            this.getTrailer().ifPresent(media -> setTrailer(media.completed(encodedPath)));
+        }
+    }
 }

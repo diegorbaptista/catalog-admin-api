@@ -6,6 +6,9 @@ import com.codemagic.catalog.admin.domain.util.IdentifierUtil;
 import java.util.Objects;
 import java.util.UUID;
 
+import static com.codemagic.catalog.admin.domain.video.MediaStatus.COMPLETED;
+import static com.codemagic.catalog.admin.domain.video.MediaStatus.PROCESSING;
+
 public final class AudioMediaVideo extends ValueObject {
 
     private final String id;
@@ -35,7 +38,7 @@ public final class AudioMediaVideo extends ValueObject {
                                        final String rawLocation,
                                        final String encodedLocation,
                                        final MediaStatus status) {
-        return new AudioMediaVideo(IdentifierUtil.uuid(), checksum, name, rawLocation, encodedLocation, status);
+        return new AudioMediaVideo(id, checksum, name, rawLocation, encodedLocation, status);
     }
 
     public static AudioMediaVideo with(final String checksum,
@@ -87,5 +90,27 @@ public final class AudioMediaVideo extends ValueObject {
     @Override
     public int hashCode() {
         return Objects.hash(checksum, rawLocation);
+    }
+
+    public AudioMediaVideo processing() {
+        return AudioMediaVideo.with(
+                id(),
+                checksum(),
+                name(),
+                rawLocation(),
+                encodedLocation(),
+                PROCESSING
+        );
+    }
+
+    public AudioMediaVideo completed(final String encodedPath) {
+        return AudioMediaVideo.with(
+                id(),
+                checksum(),
+                name(),
+                rawLocation(),
+                encodedPath,
+                COMPLETED
+        );
     }
 }
