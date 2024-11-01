@@ -1,3 +1,16 @@
+amqp:
+  admin:
+    auto-create: false
+  queues:
+    video-created:
+      exchange: video.events
+      routing-key: video.created
+      queue: video.created.queue
+    video-encoded:
+      exchange: video.events
+      routing-key: video.encoded
+      queue: video.encoded.queue
+
 google:
   cloud:
     credentials: ${GOOGLE_CLOUD_CREDENTIALS}
@@ -45,13 +58,18 @@ spring:
       maximum-pool-size: 20 # Maintain 20 connections to the database, it must be low
       minimum-idle: 10
       pool-name: master
-    jpa:
-      open-in-view: false
-      show-sql: true
-      hibernate:
-        ddl-auto: none
-      properties:
-      "[hibernate.dialect]": org.hibernate.dialect.MySQL5InnoDBDialect
+  jpa:
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      "[hibernate.dialect]": org.hibernate.dialect.MySQL8Dialect
       "[hibernate.generate_statistics]": false
       "[hibernate.connection.provider_disables_autocommit]": true
       # Para aumentar a performance ao máximo desabilitamos o auto-commit e o open-in-view
+  rabbitmq:
+    host: ${amqp.host}
+    port: ${amqp.port}
+    username: ${amqp.username}
+    password: ${amqp.password}
